@@ -28,7 +28,10 @@ Give people a simple, reliable answer to "what will the weather be like?" for th
 
 
 ## Key business rules
-- Retrieve forecasts in real time.
+- Retrieve forecasts from Open-Meteo and cache them for up to one hour, serving
+  stale cached data when refreshes fail or the daily provider-call quota is
+  exhausted.
+- Check caller permissions before returning forecast data.
 
 ## Constraints
 - The provider's free usage limits must never be exceeded (budget: 100 calls per day).
@@ -39,3 +42,4 @@ Give people a simple, reliable answer to "what will the weather be like?" for th
 
 ## Related specs
 - `specs/001-permissions-based-on-browser-header.md`
+- `specs/002-get-temperature-for-berlin/spec.md`
