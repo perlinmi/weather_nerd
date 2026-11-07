@@ -1,5 +1,9 @@
 # Berlin 3-Day Weather Forecast
 
+> Superseded: the Berlin-only route in this historical feature is replaced by
+> the EU city-limits catalogue and `GET /weather/forecast/{cityId}` in
+> [specs/003-major-european-cities/spec.md](../003-major-european-cities/spec.md).
+
 ## Summary
 
 The weather service provides a REST endpoint for a three-day daily forecast for

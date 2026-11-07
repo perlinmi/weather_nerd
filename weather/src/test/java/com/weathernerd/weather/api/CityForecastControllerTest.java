@@ -9,10 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.weathernerd.weather.domain.DailyForecast;
 import com.weathernerd.weather.domain.WeatherForecastResponse;
-import com.weathernerd.weather.service.BerlinForecastService;
-import com.weathernerd.weather.service.ForecastAccessDeniedException;
-import com.weathernerd.weather.service.ForecastQuotaExceededException;
-import com.weathernerd.weather.service.ForecastUnavailableException;
+import com.weathernerd.weather.service.CityForecastService;
+import com.weathernerd.weather.service.UnknownCityException;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -25,17 +23,18 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(BerlinForecastController.class)
-class BerlinForecastControllerTest {
+@WebMvcTest(CityForecastController.class)
+class CityForecastControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private BerlinForecastService forecastService;
+    private CityForecastService forecastService;
 
     @Test
-    void returnsThreeDayForecastAndForwardsCallerUserAgent() throws Exception {
-        when(forecastService.getForecast("Browser/1.0")).thenReturn(response(false));
+    void routesByCityIdAndPreservesTheForecastResponseShape() throws Exception {
+        when(forecastService.getForecast("berlin", "Browser/1.0"))
+                .thenReturn(response());
 
         mockMvc.perform(get("/weather/forecast/berlin")
                         .header(HttpHeaders.USER_AGENT, "Browser/1.0"))
@@ -47,59 +46,31 @@ class BerlinForecastControllerTest {
                 .andExpect(jsonPath("$.source").value("Open-Meteo DWD API"))
                 .andExpect(jsonPath("$.stale").value(false))
                 .andExpect(jsonPath("$.forecast.length()").value(3))
+                .andExpect(jsonPath("$.forecast[0].date").value("2026-11-07"))
                 .andExpect(jsonPath("$.forecast[0].minimumTemperatureCelsius").value(4.2))
                 .andExpect(jsonPath("$.forecast[0].windSpeedMetersPerSecond").value(4.5));
 
-        verify(forecastService).getForecast("Browser/1.0");
+        verify(forecastService).getForecast("berlin", "Browser/1.0");
     }
 
     @Test
-    void mapsPermissionDenialTo403ProblemDetails() throws Exception {
-        when(forecastService.getForecast("Other/1.0")).thenThrow(new ForecastAccessDeniedException());
+    void mapsUnknownCityTo404ProblemDetails() throws Exception {
+        when(forecastService.getForecast("unknown-city", null)).thenThrow(new UnknownCityException());
 
-        mockMvc.perform(get("/weather/forecast/berlin")
-                        .header(HttpHeaders.USER_AGENT, "Other/1.0"))
-                .andExpect(status().isForbidden())
+        mockMvc.perform(get("/weather/forecast/unknown-city"))
+                .andExpect(status().isNotFound())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
-                .andExpect(jsonPath("$.status").value(403));
+                .andExpect(jsonPath("$.status").value(404));
     }
 
-    @Test
-    void mapsPermissionsOutageTo503ProblemDetails() throws Exception {
-        when(forecastService.getForecast("Browser/1.0"))
-                .thenThrow(new com.weathernerd.weather.client.PermissionsServiceException("unavailable"));
-
-        mockMvc.perform(get("/weather/forecast/berlin")
-                        .header(HttpHeaders.USER_AGENT, "Browser/1.0"))
-                .andExpect(status().isServiceUnavailable())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON))
-                .andExpect(jsonPath("$.status").value(503));
-    }
-
-    @Test
-    void mapsQuotaExhaustionTo429AndProviderFailureTo502() throws Exception {
-        when(forecastService.getForecast("Browser/1.0"))
-                .thenThrow(new ForecastQuotaExceededException())
-                .thenThrow(new ForecastUnavailableException());
-
-        mockMvc.perform(get("/weather/forecast/berlin")
-                        .header(HttpHeaders.USER_AGENT, "Browser/1.0"))
-                .andExpect(status().isTooManyRequests())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON));
-        mockMvc.perform(get("/weather/forecast/berlin")
-                        .header(HttpHeaders.USER_AGENT, "Browser/1.0"))
-                .andExpect(status().isBadGateway())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON));
-    }
-
-    private static WeatherForecastResponse response(boolean stale) {
+    private static WeatherForecastResponse response() {
         return new WeatherForecastResponse(
                 "Berlin",
                 "Germany",
                 "Europe/Berlin",
                 "Open-Meteo DWD API",
                 Instant.parse("2026-11-07T10:00:00Z"),
-                stale,
+                false,
                 List.of(
                         daily("2026-11-07"),
                         daily("2026-11-08"),

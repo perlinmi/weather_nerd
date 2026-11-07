@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UtcDailyRequestQuota implements ProviderRequestQuota {
-    private static final int DAILY_LIMIT = 100;
+    private static final int DAILY_LIMIT = 500;
 
     private final Clock clock;
     private LocalDate currentUtcDate;

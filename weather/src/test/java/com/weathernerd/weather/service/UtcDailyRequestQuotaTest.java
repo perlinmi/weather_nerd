@@ -13,11 +13,11 @@ import org.junit.jupiter.api.Test;
 
 class UtcDailyRequestQuotaTest {
     @Test
-    void allowsAtMostOneHundredOutboundRequestsPerUtcDay() {
+    void allowsAtMostFiveHundredOutboundRequestsPerUtcDay() {
         MutableClock clock = new MutableClock(Instant.parse("2026-11-07T23:59:59Z"));
         UtcDailyRequestQuota quota = new UtcDailyRequestQuota(clock);
 
-        for (int attempt = 0; attempt < 100; attempt++) {
+        for (int attempt = 0; attempt < 500; attempt++) {
             quota.reserve();
         }
 
@@ -32,7 +32,7 @@ class UtcDailyRequestQuotaTest {
                 Clock.fixed(Instant.parse("2026-11-07T12:00:00Z"), ZoneOffset.UTC));
         CountDownLatch start = new CountDownLatch(1);
         AtomicInteger reserved = new AtomicInteger();
-        Thread[] threads = new Thread[150];
+        Thread[] threads = new Thread[600];
 
         for (int index = 0; index < threads.length; index++) {
             threads[index] = new Thread(() -> {
@@ -41,7 +41,7 @@ class UtcDailyRequestQuotaTest {
                     quota.reserve();
                     reserved.incrementAndGet();
                 } catch (ProviderQuotaExceededException ignored) {
-                    // The quota rejection is the expected result after 100 reservations.
+                    // The quota rejection is expected after the daily limit is reserved.
                 } catch (InterruptedException exception) {
                     Thread.currentThread().interrupt();
                 }
@@ -53,7 +53,7 @@ class UtcDailyRequestQuotaTest {
             thread.join();
         }
 
-        assertThat(reserved.get()).isEqualTo(100);
+        assertThat(reserved.get()).isEqualTo(500);
     }
 
     private static final class MutableClock extends Clock {

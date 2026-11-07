@@ -4,6 +4,7 @@ import com.weathernerd.weather.client.PermissionsServiceException;
 import com.weathernerd.weather.service.ForecastAccessDeniedException;
 import com.weathernerd.weather.service.ForecastQuotaExceededException;
 import com.weathernerd.weather.service.ForecastUnavailableException;
+import com.weathernerd.weather.service.UnknownCityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class WeatherApiExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherApiExceptionHandler.class);
+
+    @ExceptionHandler(UnknownCityException.class)
+    public ResponseEntity<ProblemDetail> handleUnknownCity(UnknownCityException exception) {
+        return problem(HttpStatus.NOT_FOUND, "City not found",
+                "The requested city is not in the forecast catalogue.");
+    }
 
     @ExceptionHandler(ForecastAccessDeniedException.class)
     public ResponseEntity<ProblemDetail> handleAccessDenied(ForecastAccessDeniedException exception) {

@@ -2,7 +2,8 @@ package com.weathernerd.weather;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.weathernerd.weather.api.BerlinForecastController;
+import com.weathernerd.weather.api.CityCatalogueController;
+import com.weathernerd.weather.api.CityForecastController;
 import com.weathernerd.weather.client.OpenMeteoClient;
 import com.weathernerd.weather.client.PermissionsClient;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class WeatherApplicationContextTest {
     @Autowired
-    private BerlinForecastController controller;
+    private CityForecastController forecastController;
+
+    @Autowired
+    private CityCatalogueController catalogueController;
 
     @Autowired
     private OpenMeteoClient openMeteoClient;
@@ -22,7 +26,8 @@ class WeatherApplicationContextTest {
 
     @Test
     void startsWithConfiguredForecastAndPermissionsClients() {
-        assertThat(controller).isNotNull();
+        assertThat(forecastController).isNotNull();
+        assertThat(catalogueController).isNotNull();
         assertThat(openMeteoClient).isNotNull();
         assertThat(permissionsClient).isNotNull();
     }

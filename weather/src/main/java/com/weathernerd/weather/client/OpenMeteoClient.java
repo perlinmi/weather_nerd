@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weathernerd.weather.config.WeatherClientProperties;
 import com.weathernerd.weather.domain.DailyForecast;
+import com.weathernerd.weather.domain.City;
 import com.weathernerd.weather.domain.WeatherCodeSummary;
 import com.weathernerd.weather.service.ProviderRequestQuota;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +26,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 public class OpenMeteoClient {
-    private static final ZoneId BERLIN = ZoneId.of("Europe/Berlin");
     private static final int MAX_ATTEMPTS_PER_HOP = 2;
     private static final int MAX_REDIRECTS = 5;
 
@@ -52,8 +52,8 @@ public class OpenMeteoClient {
         this.objectMapper = objectMapper;
     }
 
-    public ProviderForecast fetchForecast() {
-        URI requestUri = buildForecastUri();
+    public ProviderForecast fetchForecast(City city) {
+        URI requestUri = buildForecastUri(city);
         RawResponse response = dispatchWithRetry(requestUri);
         int redirects = 0;
         while (isRedirect(response.statusCode())) {
@@ -69,7 +69,7 @@ public class OpenMeteoClient {
                     "The forecast provider returned HTTP " + response.statusCode() + ".");
         }
 
-        return toForecast(response.body());
+        return toForecast(response.body(), city);
     }
 
     private RawResponse dispatchWithRetry(URI uri) {
@@ -100,18 +100,18 @@ public class OpenMeteoClient {
                 new String(response.getBody().readAllBytes(), java.nio.charset.StandardCharsets.UTF_8));
     }
 
-    private URI buildForecastUri() {
+    private URI buildForecastUri(City city) {
         return UriComponentsBuilder.fromUriString(baseUrl)
                 .path("/v1/dwd-icon")
-                .queryParam("latitude", "52.52")
-                .queryParam("longitude", "13.405")
+                .queryParam("latitude", Double.toString(city.latitude()))
+                .queryParam("longitude", Double.toString(city.longitude()))
                 .queryParam(
                         "daily",
                         "temperature_2m_min,temperature_2m_max,weather_code,"
                                 + "precipitation_probability_max,wind_speed_10m_max")
                 .queryParam("temperature_unit", "celsius")
                 .queryParam("wind_speed_unit", "ms")
-                .queryParam("timezone", "Europe/Berlin")
+                .queryParam("timezone", city.timezone())
                 .queryParam("forecast_days", "3")
                 .build()
                 .encode()
@@ -134,7 +134,7 @@ public class OpenMeteoClient {
         return target;
     }
 
-    private ProviderForecast toForecast(String body) {
+    private ProviderForecast toForecast(String body, City city) {
         ProviderPayload payload;
         try {
             payload = objectMapper.readValue(body, ProviderPayload.class);
@@ -142,10 +142,11 @@ public class OpenMeteoClient {
             throw new ProviderResponseException("The forecast provider returned invalid JSON.", exception);
         }
 
-        LocalDate firstDate = LocalDate.now(clock.withZone(BERLIN));
+        ZoneId timezone = ZoneId.of(city.timezone());
+        LocalDate firstDate = LocalDate.now(clock.withZone(timezone));
         List<LocalDate> expectedDates = List.of(firstDate, firstDate.plusDays(1), firstDate.plusDays(2));
         if (payload == null
-                || !"Europe/Berlin".equals(payload.timezone())
+                || !city.timezone().equals(payload.timezone())
                 || payload.daily() == null
                 || !validUnits(payload.dailyUnits())
                 || !validDaily(payload.daily(), expectedDates)) {
