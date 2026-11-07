@@ -90,8 +90,8 @@ Do not call live external APIs from tests.
     city-specific response metadata.
   - Resolve unknown IDs to 404 before permission/provider calls. For known
     IDs, preserve permission checks before cache access and provider calls.
-  - Keep the existing forecast response fields, WMO handling, RFC 7807 errors,
-    and satisfy T007–T008.
+  - Keep the existing non-rain weather fields, WMO handling, and RFC 7807
+    errors; satisfy T007–T008.
   - References: spec Forecast endpoint, Authorization, and Successful forecast
     response; plan Design 3.
 

@@ -10,6 +10,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.weathernerd.weather.ForecastTestCities;
 import com.weathernerd.weather.domain.City;
 import com.weathernerd.weather.domain.DailyForecast;
+import com.weathernerd.weather.domain.RainForecastDay;
+import com.weathernerd.weather.domain.RainForecastDay;
 import com.weathernerd.weather.domain.WeatherForecastResponse;
 import com.weathernerd.weather.service.CityForecastService;
 import com.weathernerd.weather.service.UnknownCityException;
@@ -41,7 +43,7 @@ class CityForecastControllerTest {
         when(forecastService.getForecast(city.cityId(), "Browser/1.0"))
                 .thenReturn(response(city));
 
-        mockMvc.perform(get("/weather/forecast/" + city.cityId())
+        var result = mockMvc.perform(get("/weather/forecast/" + city.cityId())
                         .header(HttpHeaders.USER_AGENT, "Browser/1.0"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -53,7 +55,16 @@ class CityForecastControllerTest {
                 .andExpect(jsonPath("$.forecast.length()").value(3))
                 .andExpect(jsonPath("$.forecast[0].date").value("2026-11-07"))
                 .andExpect(jsonPath("$.forecast[0].minimumTemperatureCelsius").value(4.2))
-                .andExpect(jsonPath("$.forecast[0].windSpeedMetersPerSecond").value(4.5));
+                .andExpect(jsonPath("$.forecast[0].windSpeedMetersPerSecond").value(4.5))
+                .andExpect(jsonPath("$.forecast[0].precipitationProbability").doesNotExist());
+        if (city.hasRainForecast()) {
+            result
+                    .andExpect(jsonPath("$.rainForecast.length()").value(3))
+                    .andExpect(jsonPath("$.rainForecast[0].date").value("2026-11-07"))
+                    .andExpect(jsonPath("$.rainForecast[0].probability").value(20));
+        } else {
+            result.andExpect(jsonPath("$.rainForecast").doesNotExist());
+        }
 
         verify(forecastService).getForecast(city.cityId(), "Browser/1.0");
     }
@@ -79,7 +90,13 @@ class CityForecastControllerTest {
                 List.of(
                         daily("2026-11-07"),
                         daily("2026-11-08"),
-                        daily("2026-11-09")));
+                        daily("2026-11-09")),
+                city.hasRainForecast()
+                        ? List.of(
+                                new RainForecastDay(LocalDate.parse("2026-11-07"), 20),
+                                new RainForecastDay(LocalDate.parse("2026-11-08"), 60),
+                                new RainForecastDay(LocalDate.parse("2026-11-09"), 10))
+                        : null);
     }
 
     private static DailyForecast daily(String date) {
@@ -89,7 +106,6 @@ class CityForecastControllerTest {
                 new BigDecimal("10.1"),
                 "Overcast",
                 3,
-                20,
                 new BigDecimal("4.5"));
     }
 }

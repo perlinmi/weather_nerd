@@ -3,7 +3,6 @@ package com.weathernerd.weather.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.weathernerd.weather.ForecastTestCities;
-import com.weathernerd.weather.domain.City;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Instant;
@@ -33,7 +32,13 @@ class WeatherForecastResponseTest {
                 List.of(
                         daily("2026-11-07"),
                         daily("2026-11-08"),
-                        daily("2026-11-09")));
+                        daily("2026-11-09")),
+                city.hasRainForecast()
+                        ? List.of(
+                                new RainForecastDay(LocalDate.parse("2026-11-07"), 20),
+                                new RainForecastDay(LocalDate.parse("2026-11-08"), 60),
+                                new RainForecastDay(LocalDate.parse("2026-11-09"), 10))
+                        : null);
 
         assertThat(json.write(response))
                 .extractingJsonPathStringValue("@.city").isEqualTo(city.city());
@@ -57,9 +62,20 @@ class WeatherForecastResponseTest {
                 .extractingJsonPathStringValue("@.forecast[0].summary").isEqualTo("Overcast");
         assertThat(json.write(response))
                 .extractingJsonPathNumberValue("@.forecast[0].weatherCode").isEqualTo(3);
-        assertThat(json.write(response))
-                .extractingJsonPathNumberValue("@.forecast[0].precipitationProbability")
-                .isEqualTo(20);
+        assertThat(json.write(response).getJson()).doesNotContain("precipitationProbability");
+        if (city.hasRainForecast()) {
+            assertThat(json.write(response))
+                    .extractingJsonPathNumberValue("@.rainForecast[0].probability")
+                    .isEqualTo(20);
+            assertThat(json.write(response))
+                    .extractingJsonPathStringValue("@.rainForecast[0].date")
+                    .isEqualTo("2026-11-07");
+            assertThat(json.write(response))
+                    .extractingJsonPathArrayValue("@.rainForecast")
+                    .hasSize(3);
+        } else {
+            assertThat(json.write(response).getJson()).doesNotContain("\"rainForecast\"");
+        }
         assertThat(json.write(response))
                 .extractingJsonPathNumberValue("@.forecast[0].windSpeedMetersPerSecond")
                 .isEqualTo(4.5);
@@ -72,7 +88,6 @@ class WeatherForecastResponseTest {
                 new BigDecimal("10.1"),
                 "Overcast",
                 3,
-                20,
                 new BigDecimal("4.5"));
     }
 }

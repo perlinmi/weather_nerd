@@ -45,11 +45,17 @@ problem details. A permissions-service outage or unexpected response returns
 `503 Service Unavailable` with RFC 7807 problem details.
 
 The forecast covers today and the next two calendar days in the city's IANA
-timezone. Temperature is in Celsius, precipitation probability is a
-percentage, and wind speed is in meters per second. A response includes the
-city and country, timezone, source, original provider retrieval time in UTC,
-stale flag, and three daily forecast entries. Stale data preserves its
-original `fetchedAt`.
+timezone. Temperature is in Celsius and wind speed is in meters per second. A
+response includes the city and country, timezone, source, original provider
+retrieval time in UTC, stale flag, and three daily weather forecast entries.
+
+For city names containing fewer than seven Unicode letters, the response also
+includes `rainForecast`, a three-entry array with each date and the
+precipitation probability in percent. Accented letters count as one letter;
+spaces, punctuation, and digits do not count. Names with seven or more letters
+omit `rainForecast`. The generic weather entries do not contain a
+`precipitationProbability` field. Stale data preserves its original
+`fetchedAt` and any eligible city's rain forecast.
 
 The dedicated Berlin-only handler has been removed. Berlin remains available
 because `berlin` is a city ID handled by this general route.

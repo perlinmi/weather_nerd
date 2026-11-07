@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weathernerd.weather.config.WeatherClientProperties;
 import com.weathernerd.weather.domain.DailyForecast;
+import com.weathernerd.weather.domain.RainForecastDay;
 import com.weathernerd.weather.domain.City;
 import com.weathernerd.weather.domain.WeatherCodeSummary;
 import com.weathernerd.weather.service.ProviderRequestQuota;
@@ -155,6 +156,7 @@ public class OpenMeteoClient {
         }
 
         List<DailyForecast> forecasts = new ArrayList<>(3);
+        List<RainForecastDay> rainForecast = new ArrayList<>(3);
         for (int index = 0; index < 3; index++) {
             int code = payload.daily().weatherCode().get(index);
             forecasts.add(new DailyForecast(
@@ -163,10 +165,11 @@ public class OpenMeteoClient {
                     payload.daily().maximumTemperatureCelsius().get(index),
                     codeSummary.describe(code),
                     code,
-                    payload.daily().precipitationProbability().get(index),
                     payload.daily().maximumWindSpeedMetersPerSecond().get(index)));
+            rainForecast.add(new RainForecastDay(
+                    expectedDates.get(index), payload.daily().precipitationProbability().get(index)));
         }
-        return new ProviderForecast(Instant.now(clock), forecasts);
+        return new ProviderForecast(Instant.now(clock), forecasts, rainForecast);
     }
 
     private boolean validUnits(ProviderDailyUnits units) {

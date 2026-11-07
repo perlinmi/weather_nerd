@@ -116,7 +116,8 @@ public class CityForecastService {
                     "Open-Meteo DWD API",
                     providerForecast.fetchedAt(),
                     false,
-                    providerForecast.dailyForecast());
+                    providerForecast.dailyForecast(),
+                    city.hasRainForecast() ? providerForecast.rainForecast() : null);
             CacheEntry newCache = new CacheEntry(
                     response,
                     now.plus(CACHE_TTL),

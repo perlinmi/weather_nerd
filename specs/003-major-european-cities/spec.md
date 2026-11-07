@@ -68,8 +68,10 @@ contains the dataset source and `snapshotRetrievedAt` date.
 
 Return `200 OK` with a JSON object containing the city name, country, timezone,
 source, original provider fetch time, stale flag, and exactly three daily
-entries. Keep the existing forecast response fields; the response does not add
-the catalogue `cityId` or population rank.
+entries. Keep the existing non-rain weather fields; the response does not add
+the catalogue `cityId` or population rank. The conditional rain-forecast
+feature places rain probability in a separate `rainForecast` field; see
+[`specs/004-rain-forecast/spec.md`](../004-rain-forecast/spec.md).
 
 ```json
 {
@@ -86,7 +88,6 @@ the catalogue `cityId` or population rank.
       "maximumTemperatureCelsius": 10.1,
       "summary": "Overcast",
       "weatherCode": 3,
-      "precipitationProbability": 20,
       "windSpeedMetersPerSecond": 4.5
     },
     {
@@ -95,7 +96,6 @@ the catalogue `cityId` or population rank.
       "maximumTemperatureCelsius": 9.6,
       "summary": "Slight rain",
       "weatherCode": 61,
-      "precipitationProbability": 60,
       "windSpeedMetersPerSecond": 5.1
     },
     {
@@ -104,17 +104,22 @@ the catalogue `cityId` or population rank.
       "maximumTemperatureCelsius": 8.7,
       "summary": "Partly cloudy",
       "weatherCode": 2,
-      "precipitationProbability": 10,
       "windSpeedMetersPerSecond": 3.7
     }
+  ],
+  "rainForecast": [
+    { "date": "2026-11-07", "probability": 20 },
+    { "date": "2026-11-08", "probability": 60 },
+    { "date": "2026-11-09", "probability": 10 }
   ]
 }
 ```
 
-Temperatures are numeric Celsius values. Precipitation probability is a
-percentage. Wind speed is in meters per second. Dates use the requested city's
-local calendar. `fetchedAt` is the original provider retrieval time in UTC,
-including when stale data is returned.
+Temperatures are numeric Celsius values. Wind speed is in meters per second.
+Dates use the requested city's local calendar. `fetchedAt` is the original
+provider retrieval time in UTC, including when stale data is returned.
+`rainForecast` is conditional on the city name containing fewer than seven
+Unicode letters; see `specs/004-rain-forecast/spec.md`.
 
 Map recognized WMO weather codes using Open-Meteo's documented descriptions.
 For unrecognized codes, return `"Unknown"` in `summary` and preserve the

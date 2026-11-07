@@ -9,6 +9,5 @@ public record DailyForecast(
         BigDecimal maximumTemperatureCelsius,
         String summary,
         int weatherCode,
-        int precipitationProbability,
         BigDecimal windSpeedMetersPerSecond) {
 }

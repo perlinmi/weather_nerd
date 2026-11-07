@@ -38,6 +38,10 @@ public record City(
         }
     }
 
+    public boolean hasRainForecast() {
+        return RainForecastEligibility.isEligible(city);
+    }
+
     private static void requireText(String value, String field) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(field + " must not be blank.");

@@ -16,6 +16,7 @@ import com.weathernerd.weather.client.ProviderResponseException;
 import com.weathernerd.weather.domain.City;
 import com.weathernerd.weather.domain.CityCatalogue;
 import com.weathernerd.weather.domain.DailyForecast;
+import com.weathernerd.weather.domain.RainForecastDay;
 import com.weathernerd.weather.domain.WeatherForecastResponse;
 import java.math.BigDecimal;
 import java.time.Clock;
@@ -69,6 +70,11 @@ class CityForecastServiceTest {
 
             assertThat(cached.city()).isEqualTo(city.city());
             assertThat(cached.stale()).isFalse();
+            if (city.hasRainForecast()) {
+                assertThat(cached.rainForecast()).hasSize(3);
+            } else {
+                assertThat(cached.rainForecast()).isNull();
+            }
         });
 
         verify(permissionsClient, org.mockito.Mockito.times(ForecastTestCities.ALL.size() * 2))
@@ -141,6 +147,11 @@ class CityForecastServiceTest {
 
         assertThat(stale.stale()).isTrue();
         assertThat(stale.forecast().get(0).date()).isEqualTo(LocalDate.parse("2026-11-08"));
+        if (city.hasRainForecast()) {
+            assertThat(stale.rainForecast()).hasSize(3);
+        } else {
+            assertThat(stale.rainForecast()).isNull();
+        }
     }
 
     @ParameterizedTest
@@ -205,7 +216,11 @@ class CityForecastServiceTest {
                 List.of(
                         daily(firstDate),
                         daily(firstDate.plusDays(1)),
-                        daily(firstDate.plusDays(2))));
+                        daily(firstDate.plusDays(2))),
+                List.of(
+                        new RainForecastDay(firstDate, 20),
+                        new RainForecastDay(firstDate.plusDays(1), 60),
+                        new RainForecastDay(firstDate.plusDays(2), 10)));
     }
 
     private static DailyForecast daily(LocalDate date) {
@@ -215,7 +230,6 @@ class CityForecastServiceTest {
                 new BigDecimal("10.1"),
                 "Overcast",
                 3,
-                20,
                 new BigDecimal("4.5"));
     }
 

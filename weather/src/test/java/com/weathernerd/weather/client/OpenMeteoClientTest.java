@@ -11,6 +11,8 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import com.weathernerd.weather.domain.WeatherCodeSummary;
 import com.weathernerd.weather.config.WeatherClientProperties;
 import com.weathernerd.weather.domain.City;
+import com.weathernerd.weather.domain.DailyForecast;
+import com.weathernerd.weather.domain.RainForecastDay;
 import com.weathernerd.weather.service.ProviderQuotaExceededException;
 import com.weathernerd.weather.service.UtcDailyRequestQuota;
 import java.time.Clock;
@@ -56,7 +58,12 @@ class OpenMeteoClientTest {
         assertThat(forecast.dailyForecast()).hasSize(3);
         assertThat(forecast.dailyForecast().get(0).date()).isEqualTo(LocalDate.parse("2026-11-07"));
         assertThat(forecast.dailyForecast().get(0).summary()).isEqualTo("Overcast");
-        assertThat(forecast.dailyForecast().get(0).precipitationProbability()).isEqualTo(20);
+        assertThat(forecast.rainForecast())
+                .extracting(RainForecastDay::probability)
+                .containsExactly(20, 60, 10);
+        assertThat(forecast.rainForecast())
+                .extracting(RainForecastDay::date)
+                .containsExactlyElementsOf(forecast.dailyForecast().stream().map(DailyForecast::date).toList());
         assertThat(quota.reservedToday()).isEqualTo(1);
         server.verify();
     }
