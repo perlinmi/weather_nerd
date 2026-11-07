@@ -162,6 +162,6 @@ Do not call live external APIs from tests.
   - Confirm the entire pinned catalogue passes its data-integrity checks;
     tests use no live external APIs; review response shapes, authorization
     ordering, cache behavior, quota limit, and error mappings.
-  - Validation used the installed JDK 17 with `-Djava.version=17`; repeat
-    with the configured Java 21 target when that toolchain is available.
+  - Previous validation used an older local JDK with a version override;
+    full reactor verification now passes in a Java 25 container.
   - References: spec Acceptance criteria; plan Test Strategy 7 and Design 6.

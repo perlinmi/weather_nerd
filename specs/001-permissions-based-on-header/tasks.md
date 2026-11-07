@@ -9,7 +9,7 @@ per task. Write the tests before the implementation tasks they cover.
   - Approved dependencies: Spring Boot 3.x web starter in both modules and
     Spring Boot starter-test (JUnit 5, Mockito, MockMvc) for tests; no browser
     parser or database dependency.
-  - Establish a Java 21 Maven parent build, `permissions` and `weather` modules,
+  - Establish a Java 25 Maven parent build, `permissions` and `weather` modules,
     and Maven wrapper using the approved dependencies.
   - Use `com.weathernerd` as the valid shared Java package root.
   - Verify both modules build.

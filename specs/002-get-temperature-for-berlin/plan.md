@@ -11,7 +11,7 @@ Weather-service forwarding, caching, quota, and failure behavior follow
 
 ## Technical Context
 
-- **Repository:** Java 21, Spring Boot 3.5.7, Maven multi-module build. The
+- **Repository:** Java 25, Spring Boot 3.5.7, Maven multi-module build. The
   weather module currently contains only its application class and
   configuration; no forecast API, HTTP client, persistence, or tests exist.
 - **Existing dependencies:** Spring Web and Spring Boot Starter Test are

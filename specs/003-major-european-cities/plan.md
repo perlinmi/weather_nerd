@@ -13,7 +13,7 @@ of 500 outbound provider HTTP requests per UTC day.
 
 ## Technical Context
 
-- **Repository:** Java 21, Spring Boot 3.5.7, Maven multi-module build. The
+- **Repository:** Java 25, Spring Boot 3.5.7, Maven multi-module build. The
   weather module already implements the Berlin controller, provider and
   permissions clients, response types, in-memory cache/single-flight refresh,
   RFC 7807 handling, and UTC daily quota. These are to be generalized rather

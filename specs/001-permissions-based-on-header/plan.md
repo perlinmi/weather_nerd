@@ -13,7 +13,7 @@ malformed user-agent values.
 - **Repository state:** The `permissions/` and `weather/` modules currently
   contain no application code or Maven configuration. No Maven wrapper or
   parent `pom.xml` is present.
-- **Target stack:** Java 21, Spring Boot 3.5.7, Maven, JUnit 5, and Mockito.
+- **Target stack:** Java 25, Spring Boot 3.5.7, Maven, JUnit 5, and Mockito.
 - **Dependencies:** Do not add a browser-parsing library or other dependencies
   without approval. Use a small, isolated classifier with documented,
   deterministic matching rules unless an existing dependency is established
@@ -83,7 +83,7 @@ features.
 
 ## Validation Plan
 
-1. Verify the parent build compiles both modules with Java 21.
+1. Verify the parent build compiles both modules with Java 25.
 2. Run focused classifier and policy unit tests, including:
    - Google Chrome identifiers, across versions.
    - Safari identifiers, across versions.
@@ -110,6 +110,6 @@ features.
   its denial behavior are specified.
 - The repository has no build files yet. Establishing the Maven project and
   deciding its baseline Spring Boot 3.x version are prerequisites to execution.
-- This environment does not have a Java 21 runtime installed. The code targets
-  Java 21 and was compiled/tested with JDK 25 using `--release 21`; run it on
-  JDK 21 in the intended deployment environment.
+- Java 25 is the only supported runtime and compiler target. The host shell
+  lacks a local JDK 25 installation; Java 25 builds and tests can run in the
+  Maven/Temurin 25 container.

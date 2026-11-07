@@ -7,7 +7,7 @@ Monorepo with two Spring Boot services:
 Specs live in `specs/` (Spec Kit). The contract between the services is `specs/contracts/`.
 
 ## Stack
-- Java 21, Spring Boot 3.x, Maven (parent `pom.xml` with both modules)
+- Java 25 only, Spring Boot 3.x, Maven (parent `pom.xml` with both modules)
 - Tests: JUnit 5, Mockito, Testcontainers, WireMock for external APIs
 - Services talk to each other via RESTful API
 
