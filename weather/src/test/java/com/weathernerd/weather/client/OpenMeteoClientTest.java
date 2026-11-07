@@ -17,7 +17,8 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
@@ -26,29 +27,30 @@ import org.springframework.web.client.RestClient;
 class OpenMeteoClientTest {
     private static final Clock CLOCK =
             Clock.fixed(Instant.parse("2026-11-07T10:00:00Z"), ZoneOffset.UTC);
-    private static final City BERLIN = city(
-            "berlin", "Berlin", "Germany", 52.52, 13.405, "Europe/Berlin");
 
-    @Test
-    void requestsBerlinDailyFieldsAndMapsThreeDays() {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void requestsCityDailyFieldsAndMapsThreeDays(City city) {
         RestClient.Builder builder = RestClient.builder();
         MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
         server.expect(requestTo(org.hamcrest.Matchers.containsString("/v1/dwd-icon")))
                 .andExpect(method(HttpMethod.GET))
-                .andExpect(queryParam("latitude", "52.52"))
-                .andExpect(queryParam("longitude", "13.405"))
-                .andExpect(queryParam("timezone", "Europe/Berlin"))
+                .andExpect(queryParam("latitude", Double.toString(city.latitude())))
+                .andExpect(queryParam("longitude", Double.toString(city.longitude())))
+                .andExpect(queryParam("timezone", city.timezone()))
                 .andExpect(queryParam("temperature_unit", "celsius"))
                 .andExpect(queryParam("wind_speed_unit", "ms"))
                 .andExpect(queryParam(
                         "daily",
                         "temperature_2m_min,temperature_2m_max,weather_code,precipitation_probability_max,wind_speed_10m_max"))
                 .andExpect(queryParam("forecast_days", "3"))
-                .andRespond(withSuccess(validPayload(), MediaType.APPLICATION_JSON));
+                .andRespond(withSuccess(
+                        validPayload(city.timezone(), LocalDate.parse("2026-11-07")),
+                        MediaType.APPLICATION_JSON));
         UtcDailyRequestQuota quota = new UtcDailyRequestQuota(CLOCK);
         OpenMeteoClient client = client(builder, quota);
 
-        ProviderForecast forecast = client.fetchForecast(BERLIN);
+        ProviderForecast forecast = client.fetchForecast(city);
 
         assertThat(forecast.fetchedAt()).isEqualTo(Instant.now(CLOCK));
         assertThat(forecast.dailyForecast()).hasSize(3);
@@ -59,79 +61,88 @@ class OpenMeteoClientTest {
         server.verify();
     }
 
-    @Test
-    void rejectsPayloadThatDoesNotContainThreeExpectedDates() {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void rejectsPayloadThatDoesNotContainThreeExpectedDates(City city) {
         RestClient.Builder builder = RestClient.builder();
         MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
         server.expect(requestTo(org.hamcrest.Matchers.containsString("/v1/dwd-icon")))
                 .andRespond(withSuccess(
-                        validPayload().replace(
+                        validPayload(city.timezone(), LocalDate.parse("2026-11-07")).replace(
                                 "\"2026-11-09\"",
                                 "\"2026-11-10\""),
                         MediaType.APPLICATION_JSON));
         OpenMeteoClient client = client(builder, new UtcDailyRequestQuota(CLOCK));
 
-        assertThatThrownBy(() -> client.fetchForecast(BERLIN))
+        assertThatThrownBy(() -> client.fetchForecast(city))
                 .isInstanceOf(ProviderResponseException.class);
         server.verify();
     }
 
-    @Test
-    void rejectsPayloadWithMissingOrMisalignedDailyValues() {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void rejectsPayloadWithMissingOrMisalignedDailyValues(City city) {
         RestClient.Builder builder = RestClient.builder();
         MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
         server.expect(requestTo(org.hamcrest.Matchers.containsString("/v1/dwd-icon")))
                 .andRespond(withSuccess(
-                        validPayload().replace(
+                        validPayload(city.timezone(), LocalDate.parse("2026-11-07")).replace(
                                 "\"wind_speed_10m_max\": [4.5, 5.1, 3.7]",
                                 "\"wind_speed_10m_max\": [4.5, 5.1]"),
                         MediaType.APPLICATION_JSON));
         OpenMeteoClient client = client(builder, new UtcDailyRequestQuota(CLOCK));
 
-        assertThatThrownBy(() -> client.fetchForecast(BERLIN))
+        assertThatThrownBy(() -> client.fetchForecast(city))
                 .isInstanceOf(ProviderResponseException.class);
         server.verify();
     }
 
-    @Test
-    void retriesServerFailureAndCountsEachOutboundAttempt() {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void retriesServerFailureAndCountsEachOutboundAttempt(City city) {
         RestClient.Builder builder = RestClient.builder();
         MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
         server.expect(requestTo(org.hamcrest.Matchers.containsString("/v1/dwd-icon")))
                 .andRespond(withStatus(org.springframework.http.HttpStatus.BAD_GATEWAY));
         server.expect(requestTo(org.hamcrest.Matchers.containsString("/v1/dwd-icon")))
-                .andRespond(withSuccess(validPayload(), MediaType.APPLICATION_JSON));
+                .andRespond(withSuccess(
+                        validPayload(city.timezone(), LocalDate.parse("2026-11-07")),
+                        MediaType.APPLICATION_JSON));
         UtcDailyRequestQuota quota = new UtcDailyRequestQuota(CLOCK);
         OpenMeteoClient client = client(builder, quota);
 
-        ProviderForecast forecast = client.fetchForecast(BERLIN);
+        ProviderForecast forecast = client.fetchForecast(city);
 
         assertThat(forecast.dailyForecast()).hasSize(3);
         assertThat(quota.reservedToday()).isEqualTo(2);
         server.verify();
     }
 
-    @Test
-    void countsRedirectHopAsASeparateOutboundRequest() {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void countsRedirectHopAsASeparateOutboundRequest(City city) {
         RestClient.Builder builder = RestClient.builder();
         MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
         server.expect(requestTo(org.hamcrest.Matchers.containsString("/v1/dwd-icon")))
                 .andRespond(withStatus(org.springframework.http.HttpStatus.TEMPORARY_REDIRECT)
                         .location(java.net.URI.create("http://open-meteo.test/v1/dwd-icon-redirect")));
         server.expect(requestTo("http://open-meteo.test/v1/dwd-icon-redirect"))
-                .andRespond(withSuccess(validPayload(), MediaType.APPLICATION_JSON));
+                .andRespond(withSuccess(
+                        validPayload(city.timezone(), LocalDate.parse("2026-11-07")),
+                        MediaType.APPLICATION_JSON));
         UtcDailyRequestQuota quota = new UtcDailyRequestQuota(CLOCK);
         OpenMeteoClient client = client(builder, quota);
 
-        ProviderForecast forecast = client.fetchForecast(BERLIN);
+        ProviderForecast forecast = client.fetchForecast(city);
 
         assertThat(forecast.dailyForecast()).hasSize(3);
         assertThat(quota.reservedToday()).isEqualTo(2);
         server.verify();
     }
 
-    @Test
-    void doesNotDispatchRedirectWhenQuotaHasNoRemainingSlots() {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void doesNotDispatchRedirectWhenQuotaHasNoRemainingSlots(City city) {
         RestClient.Builder builder = RestClient.builder();
         MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
         server.expect(requestTo(org.hamcrest.Matchers.containsString("/v1/dwd-icon")))
@@ -143,30 +154,30 @@ class OpenMeteoClientTest {
         }
         OpenMeteoClient client = client(builder, quota);
 
-        assertThatThrownBy(() -> client.fetchForecast(BERLIN))
+        assertThatThrownBy(() -> client.fetchForecast(city))
                 .isInstanceOf(ProviderQuotaExceededException.class);
         assertThat(quota.reservedToday()).isEqualTo(500);
         server.verify();
     }
 
-    @Test
-    void requestsCoordinatesAndDatesForTheSelectedCityTimezone() {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void requestsCoordinatesAndDatesForTheSelectedCityTimezone(City city) {
         Clock lateUtcClock = Clock.fixed(
                 Instant.parse("2026-11-07T23:30:00Z"), ZoneOffset.UTC);
-        City warsaw = city("warsaw", "Warsaw", "Poland", 52.2297, 21.0122, "Europe/Warsaw");
         RestClient.Builder builder = RestClient.builder();
         MockRestServiceServer server = MockRestServiceServer.bindTo(builder).build();
         server.expect(requestTo(org.hamcrest.Matchers.containsString("/v1/dwd-icon")))
-                .andExpect(queryParam("latitude", "52.2297"))
-                .andExpect(queryParam("longitude", "21.0122"))
-                .andExpect(queryParam("timezone", "Europe/Warsaw"))
+                .andExpect(queryParam("latitude", Double.toString(city.latitude())))
+                .andExpect(queryParam("longitude", Double.toString(city.longitude())))
+                .andExpect(queryParam("timezone", city.timezone()))
                 .andRespond(withSuccess(
-                        validPayload("Europe/Warsaw", LocalDate.parse("2026-11-08")),
+                        validPayload(city.timezone(), LocalDate.parse("2026-11-08")),
                         MediaType.APPLICATION_JSON));
         OpenMeteoClient client = client(
                 builder, new UtcDailyRequestQuota(lateUtcClock), lateUtcClock);
 
-        ProviderForecast forecast = client.fetchForecast(warsaw);
+        ProviderForecast forecast = client.fetchForecast(city);
 
         assertThat(forecast.dailyForecast().get(0).date()).isEqualTo(LocalDate.parse("2026-11-08"));
         server.verify();
@@ -189,31 +200,10 @@ class OpenMeteoClientTest {
                         .findAndRegisterModules());
     }
 
-    private static City city(
-            String id, String name, String country, double latitude, double longitude, String timezone) {
-        return new City(
-                id,
-                name,
-                country,
-                latitude,
-                longitude,
-                timezone,
-                1,
-                1000,
-                2025,
-                "https://example.test/population",
-                "https://example.test/coordinates",
-                "https://example.test/timezone");
-    }
-
     private static WeatherClientProperties properties() {
         WeatherClientProperties properties = new WeatherClientProperties();
         properties.setOpenMeteoBaseUrl("http://open-meteo.test");
         return properties;
-    }
-
-    private static String validPayload() {
-        return validPayload("Europe/Berlin", LocalDate.parse("2026-11-07"));
     }
 
     private static String validPayload(String timezone, LocalDate firstDate) {

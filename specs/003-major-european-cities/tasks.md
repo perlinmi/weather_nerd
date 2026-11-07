@@ -4,14 +4,13 @@ Tasks are ordered and intended to be completed one at a time, with one commit
 per task. Write or update tests before the implementation tasks they cover.
 Do not call live external APIs from tests.
 
-## City catalogue and provenance
+## City catalogue
 
 - [x] T001 Add city-catalogue validation tests.
   - Define test cases for all 95 city rows in the pinned source
     snapshot, consecutive unique ranks in
     order, unique lowercase ASCII IDs, valid coordinate ranges, valid IANA
-    timezones, required population metadata, and non-empty population,
-    coordinate, and timezone citations.
+    timezones, and required population metadata.
   - Verify the catalogue exposes a recorded snapshot date and source and is
     available without permissions or provider calls.
   - References: spec City inclusion and catalogue, acceptance criteria 1–4;
@@ -19,11 +18,10 @@ Do not call live external APIs from tests.
 
 - [x] T002 Pin and load the versioned city catalogue.
   - Pin the specified EU city-limits source snapshot retrieved on 2026-11-07.
-    Include every listed city with verifiable required data and provenance;
-    document any source row omitted for missing or unverifiable data.
+    Include every listed city with verifiable required data; document any
+    source row omitted for missing or unverifiable data.
   - Include stable IDs, canonical city and country names, rank, population,
-    population as-of year, representative coordinates, IANA timezone, and
-    citations for population, coordinates, and timezone.
+    population as-of year, representative coordinates, and IANA timezone.
   - Add an immutable typed catalogue model and loader backed by application
     data. Validate the required fields and satisfy T001.
   - References: spec Summary and City inclusion and catalogue; plan Design 1.
@@ -31,16 +29,15 @@ Do not call live external APIs from tests.
 - [x] T003 Add public city-catalogue endpoint tests.
   - Verify `GET /weather/cities` returns all 95 pinned catalogue records in
     rank order with the required public fields, dataset source, and snapshot date.
-  - Assert per-city source citations are not exposed in the response and
-    requests do not call permissions or Open-Meteo.
+  - Verify the response contains the public catalogue fields and requests do
+    not call permissions or Open-Meteo.
   - References: spec City catalogue endpoint and acceptance criterion 1;
     plan Test Strategy 2.
 
 - [x] T004 Implement `GET /weather/cities`.
   - Add public response DTOs and a thin controller returning the pinned
     catalogue and dataset metadata.
-  - Keep source citations in bundled catalogue data only; do not make
-    permission checks or external requests.
+  - Do not make permission checks or external requests.
   - Satisfy T003.
   - References: spec City catalogue endpoint; plan Design 2.
 
@@ -152,7 +149,7 @@ Do not call live external APIs from tests.
     fields, and error statuses, wherever the existing service contract
     documents these routes.
   - Keep the documentation aligned with the feature spec and omit per-city
-    citations from the public response contract.
+    unused per-city source fields from the catalogue.
   - References: spec City catalogue endpoint, Forecast endpoint, and
     Authorization; plan Design 6.
 

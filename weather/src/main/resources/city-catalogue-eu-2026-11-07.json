@@ -8,1330 +8,1045 @@
       "city": "Berlin",
       "population": 3913644,
       "populationAsOfYear": 2025,
-      "populationSource": "https://www.statistik-berlin-brandenburg.de/kommunalstatistik/einwohnerbestand-berlin",
       "cityId": "berlin",
       "country": "Germany",
       "latitude": 52.516666666667,
       "longitude": 13.383333333333,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q64#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 2,
       "city": "Madrid",
       "population": 3506730,
       "populationAsOfYear": 2025,
-      "populationSource": "https://www.ine.es/dynt3/inebase/en/index.htm?padre=525",
       "cityId": "madrid",
       "country": "Spain",
       "latitude": 40.41694444444445,
       "longitude": -3.703333333333333,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2807#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 3,
       "city": "Rome",
       "population": 2745062,
       "populationAsOfYear": 2026,
-      "populationSource": "https://esploradati.istat.it/databrowser/#/en/dw/categories/IT1,POP,1.0/POP_POPULATION/DCIS_POPRES1/IT1,22_289_DF_DCIS_POPRES1_25,1.0",
       "cityId": "rome",
       "country": "Italy",
       "latitude": 41.893055555556,
       "longitude": 12.482777777778,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q220#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 4,
       "city": "Paris",
       "population": 2047602,
       "populationAsOfYear": 2026,
-      "populationSource": "https://www.insee.fr/fr/statistiques/8721456",
       "cityId": "paris",
       "country": "France",
       "latitude": 48.85666666666667,
       "longitude": 2.352222222222222,
-      "timezone": "Europe/Paris",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q90#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Paris"
     },
     {
       "rank": 5,
       "city": "Vienna",
       "population": 2044366,
       "populationAsOfYear": 2026,
-      "populationSource": "https://www.statistik.at/en/statistics/population-and-society/population/population-stock/population-at-beginning-of-year/quarter",
       "cityId": "vienna",
       "country": "Austria",
       "latitude": 48.208333333333336,
       "longitude": 16.3725,
-      "timezone": "Europe/Vienna",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1741#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Vienna"
     },
     {
       "rank": 6,
       "city": "Hamburg",
       "population": 1869786,
       "populationAsOfYear": 2026,
-      "populationSource": "https://www.statistik-nord.de/zahlen-fakten/bevoelkerung",
       "cityId": "hamburg",
       "country": "Germany",
       "latitude": 53.55,
       "longitude": 10,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1055#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 7,
       "city": "Warsaw",
       "population": 1866729,
       "populationAsOfYear": 2025,
-      "populationSource": "https://stat.gov.pl/en/topics/population/population/population-size-and-structure-and-vital-statistics-in-poland-by-territorial-division-in-2025-as-of-31-december,3,39.html",
       "cityId": "warsaw",
       "country": "Poland",
       "latitude": 52.23,
       "longitude": 21.011111111111113,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q270#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 8,
       "city": "Barcelona",
       "population": 1731649,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "barcelona",
       "country": "Spain",
       "latitude": 41.3825,
       "longitude": 2.1769444444444,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1492#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 9,
       "city": "Bucharest",
       "population": 1709458,
       "populationAsOfYear": 2025,
-      "populationSource": "http://statistici.insse.ro/tempoins/index.jsp?page=tempo3&lang=en&ind=POP105A",
       "cityId": "bucharest",
       "country": "Romania",
       "latitude": 44.41336111111111,
       "longitude": 26.09777777777778,
-      "timezone": "Europe/Bucharest",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q19660#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Bucharest"
     },
     {
       "rank": 10,
       "city": "Budapest",
       "population": 1675777,
       "populationAsOfYear": 2026,
-      "populationSource": "https://www.ksh.hu/stadat_files/nep/en/nep0037.html",
       "cityId": "budapest",
       "country": "Hungary",
       "latitude": 47.498333333333,
       "longitude": 19.040833333333,
-      "timezone": "Europe/Budapest",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1781#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Budapest"
     },
     {
       "rank": 11,
       "city": "Munich",
       "population": 1505036,
       "populationAsOfYear": 2025,
-      "populationSource": "https://www.statistikdaten.bayern.de/genesis/online?operation=result&code=12411-003r&leerzeilen=false&language=de",
       "cityId": "munich",
       "country": "Germany",
       "latitude": 48.1375,
       "longitude": 11.575,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1726#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 12,
       "city": "Prague",
       "population": 1405551,
       "populationAsOfYear": 2026,
-      "populationSource": "https://praguemorning.cz/prague-population-growth-2026/",
       "cityId": "prague",
       "country": "Czechia",
       "latitude": 50.0875,
       "longitude": 14.421388888888888,
-      "timezone": "Europe/Prague",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1085#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Prague"
     },
     {
       "rank": 13,
       "city": "Milan",
       "population": 1362863,
       "populationAsOfYear": 2026,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "milan",
       "country": "Italy",
       "latitude": 45.466944444444,
       "longitude": 9.19,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q490#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 14,
       "city": "Sofia",
       "population": 1303813,
       "populationAsOfYear": 2025,
-      "populationSource": "https://www.nsi.bg/en/statistical-data/206/651",
       "cityId": "sofia",
       "country": "Bulgaria",
       "latitude": 42.697886,
       "longitude": 23.321726,
-      "timezone": "Europe/Sofia",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q472#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Sofia"
     },
     {
       "rank": 15,
       "city": "Cologne",
       "population": 1025523,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "cologne",
       "country": "Germany",
       "latitude": 50.942222222222,
       "longitude": 6.9577777777778,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q365#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 16,
       "city": "Stockholm",
       "population": 1000962,
       "populationAsOfYear": 2026,
-      "populationSource": "https://www.scb.se/en/finding-statistics/statistics-by-subject-area/population-and-living-conditions/population-composition-and-development/population-statistics/pong/tables-and-graphs/population-statistics---month-quarter-half-year/population-statistics---quarter-2-2026/",
       "cityId": "stockholm",
       "country": "Sweden",
       "latitude": 59.329444444444,
       "longitude": 18.068611111111,
-      "timezone": "Europe/Stockholm",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1754#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Stockholm"
     },
     {
       "rank": 17,
       "city": "Amsterdam",
       "population": 945870,
       "populationAsOfYear": 2026,
-      "populationSource": "https://opendata.cbs.nl/statline/#/CBS/nl/dataset/37230ned/table",
       "cityId": "amsterdam",
       "country": "Netherlands",
       "latitude": 52.36666666666667,
       "longitude": 4.883333333333333,
-      "timezone": "Europe/Amsterdam",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q727#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Amsterdam"
     },
     {
       "rank": 18,
       "city": "Naples",
       "population": 905050,
       "populationAsOfYear": 2026,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "naples",
       "country": "Italy",
       "latitude": 40.83583333333333,
       "longitude": 14.248611111111112,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2634#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 19,
       "city": "Marseille",
       "population": 890707,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.insee.fr/en/statistiques/8689001",
       "cityId": "marseille",
       "country": "France",
       "latitude": 43.296666666667,
       "longitude": 5.3763888888889,
-      "timezone": "Europe/Paris",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q23482#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Paris"
     },
     {
       "rank": 20,
       "city": "Turin",
       "population": 855654,
       "populationAsOfYear": 2026,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "turin",
       "country": "Italy",
       "latitude": 45.079166666666666,
       "longitude": 7.676111111111111,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q495#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 21,
       "city": "Valencia",
       "population": 840792,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "valencia",
       "country": "Spain",
       "latitude": 39.47,
       "longitude": -0.3763888888888889,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q8818#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 22,
       "city": "Kraków",
       "population": 816614,
       "populationAsOfYear": 2025,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "krakow",
       "country": "Poland",
       "latitude": 50.061388888889,
       "longitude": 19.937222222222,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q31487#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 23,
       "city": "Zagreb",
       "population": 777359,
       "populationAsOfYear": 2024,
-      "populationSource": "https://web.dzs.hr/PXWeb/Selection.aspx?px_path=Stanovni%c5%a1tvo__Procjene%20stanovni%c5%a1tva&px_tableid=SP31_2.px&px_language=en&px_db=Stanovni%c5%a1tvo&rxid=5cfcfa0a-1ab1-4656-bbcc-518f85179f41",
       "cityId": "zagreb",
       "country": "Croatia",
       "latitude": 45.81305555555556,
       "longitude": 15.977222222222222,
-      "timezone": "Europe/Zagreb",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1435#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Zagreb"
     },
     {
       "rank": 24,
       "city": "Frankfurt",
       "population": 756021,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/Administrativ/05-staedte.html;jsessionid=93818A95338A8467A965023BE20740CB.live741",
       "cityId": "frankfurt",
       "country": "Germany",
       "latitude": 50.11055555555556,
       "longitude": 8.682222222222222,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1794#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 25,
       "city": "Helsinki",
       "population": 699637,
       "populationAsOfYear": 2026,
-      "populationSource": "https://pxdata.stat.fi/PXWeb/pxweb/en/StatFin/StatFin__vamuu/11lj.px",
       "cityId": "helsinki",
       "country": "Finland",
       "latitude": 60.170833333333334,
       "longitude": 24.9375,
-      "timezone": "Europe/Helsinki",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1757#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Helsinki"
     },
     {
       "rank": 26,
       "city": "Zaragoza",
       "population": 693091,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "zaragoza",
       "country": "Spain",
       "latitude": 41.65,
       "longitude": -0.88333333333333,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q10305#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 27,
       "city": "Seville",
       "population": 689423,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "seville",
       "country": "Spain",
       "latitude": 37.38861111111111,
       "longitude": -5.995,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q8717#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 28,
       "city": "Rotterdam",
       "population": 673966,
       "populationAsOfYear": 2026,
-      "populationSource": "https://datacube.statistics.sk/#!/view/en/vbd_dem/om7104mr/v_om7104mr_00_00_00_en",
       "cityId": "rotterdam",
       "country": "Netherlands",
       "latitude": 51.92,
       "longitude": 4.48,
-      "timezone": "Europe/Amsterdam",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q34370#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Amsterdam"
     },
     {
       "rank": 29,
       "city": "Wrocław",
       "population": 672601,
       "populationAsOfYear": 2025,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "wroclaw",
       "country": "Poland",
       "latitude": 51.11,
       "longitude": 17.0325,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1799#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 30,
       "city": "Copenhagen",
       "population": 671714,
       "populationAsOfYear": 2026,
-      "populationSource": "https://www.statbank.dk/20021",
       "cityId": "copenhagen",
       "country": "Denmark",
       "latitude": 55.676111111111,
       "longitude": 12.568888888889,
-      "timezone": "Europe/Copenhagen",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1748#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Copenhagen"
     },
     {
       "rank": 31,
       "city": "Lisbon",
       "population": 658236,
       "populationAsOfYear": 2025,
-      "populationSource": "https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0012918",
       "cityId": "lisbon",
       "country": "Portugal",
       "latitude": 38.708042,
       "longitude": -9.139016,
-      "timezone": "Europe/Lisbon",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q597#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Lisbon"
     },
     {
       "rank": 32,
       "city": "Athens",
       "population": 643450,
       "populationAsOfYear": 2024,
-      "populationSource": "https://data.jrc.ec.europa.eu/dataset/37fcacbf-12e2-4b31-b1af-83117a74b2c7",
       "cityId": "athens",
       "country": "Greece",
       "latitude": 37.98416666666667,
       "longitude": 23.728055555555557,
-      "timezone": "Europe/Athens",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1524#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Athens"
     },
     {
       "rank": 33,
       "city": "Łódź",
       "population": 639890,
       "populationAsOfYear": 2025,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "lodz",
       "country": "Poland",
       "latitude": 51.75,
       "longitude": 19.466666666667,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q580#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 34,
       "city": "Palermo",
       "population": 626273,
       "populationAsOfYear": 2026,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "palermo",
       "country": "Italy",
       "latitude": 38.115658055555556,
       "longitude": 13.361261944444445,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2656#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 35,
       "city": "Düsseldorf",
       "population": 619444,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "dusseldorf",
       "country": "Germany",
       "latitude": 51.22555555555556,
       "longitude": 6.776666666666666,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1718#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 36,
       "city": "Vilnius",
       "population": 619405,
       "populationAsOfYear": 2026,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "vilnius",
       "country": "Lithuania",
       "latitude": 54.687222222222225,
       "longitude": 25.28,
-      "timezone": "Europe/Vilnius",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q216#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Vilnius"
     },
     {
       "rank": 37,
       "city": "Gothenburg",
       "population": 614165,
       "populationAsOfYear": 2026,
-      "populationSource": "https://data.cso.ie/",
       "cityId": "gothenburg",
       "country": "Sweden",
       "latitude": 57.7075,
       "longitude": 11.9675,
-      "timezone": "Europe/Stockholm",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q25287#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Stockholm"
     },
     {
       "rank": 38,
       "city": "Stuttgart",
       "population": 612663,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "stuttgart",
       "country": "Germany",
       "latitude": 48.7775,
       "longitude": 9.18,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1022#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 39,
       "city": "Leipzig",
       "population": 611850,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "leipzig",
       "country": "Germany",
       "latitude": 51.3406321,
       "longitude": 12.3747329,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2079#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 40,
       "city": "Dortmund",
       "population": 600880,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "dortmund",
       "country": "Germany",
       "latitude": 51.513888888889,
       "longitude": 7.4652777777778,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1295#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 41,
       "city": "Málaga",
       "population": 599063,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "malaga",
       "country": "Spain",
       "latitude": 36.716666666667,
       "longitude": -4.4166666666667,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q8851#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 42,
       "city": "Dublin",
       "population": 592713,
       "populationAsOfYear": 2022,
-      "populationSource": "https://data.cso.ie/",
       "cityId": "dublin",
       "country": "Ireland",
       "latitude": 53.34972222222222,
       "longitude": -6.260277777777778,
-      "timezone": "Europe/Dublin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1761#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Dublin"
     },
     {
       "rank": 43,
       "city": "Riga",
       "population": 588911,
       "populationAsOfYear": 2026,
-      "populationSource": "https://data.stat.gov.lv/pxweb/en/OSP_PUB/START__POP__IR__IRE/IRE071/",
       "cityId": "riga",
       "country": "Latvia",
       "latitude": 56.9475,
       "longitude": 24.106944444444,
-      "timezone": "Europe/Riga",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1773#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Riga"
     },
     {
       "rank": 44,
       "city": "Bremen",
       "population": 586271,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "bremen",
       "country": "Germany",
       "latitude": 53.075833333333335,
       "longitude": 8.807222222222222,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q24879#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 45,
       "city": "Essen",
       "population": 573618,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "essen",
       "country": "Germany",
       "latitude": 51.450833333333,
       "longitude": 7.0130555555556,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2066#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 46,
       "city": "Antwerp",
       "population": 572365,
       "populationAsOfYear": 2026,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "antwerp",
       "country": "Belgium",
       "latitude": 51.221111111111114,
       "longitude": 4.3997222222222225,
-      "timezone": "Europe/Brussels",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q12892#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Brussels"
     },
     {
       "rank": 47,
       "city": "The Hague",
       "population": 569293,
       "populationAsOfYear": 2026,
-      "populationSource": "https://datacube.statistics.sk/#!/view/en/vbd_dem/om7104mr/v_om7104mr_00_00_00_en",
       "cityId": "the-hague",
       "country": "Netherlands",
       "latitude": 52.08,
       "longitude": 4.31,
-      "timezone": "Europe/Amsterdam",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q36600#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Amsterdam"
     },
     {
       "rank": 48,
       "city": "Genoa",
       "population": 566247,
       "populationAsOfYear": 2026,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "genoa",
       "country": "Italy",
       "latitude": 44.407222222222224,
       "longitude": 8.93388888888889,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1449#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 49,
       "city": "Dresden",
       "population": 564904,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "dresden",
       "country": "Germany",
       "latitude": 51.0493286,
       "longitude": 13.7381437,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1731#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 50,
       "city": "Poznań",
       "population": 534239,
       "populationAsOfYear": 2025,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "poznan",
       "country": "Poland",
       "latitude": 52.40833333333333,
       "longitude": 16.933611111111112,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q268#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 51,
       "city": "Nuremberg",
       "population": 531159,
       "populationAsOfYear": 2025,
-      "populationSource": "https://www.statistikdaten.bayern.de/genesis/online?operation=result&code=12411-003r&leerzeilen=false&language=de",
       "cityId": "nuremberg",
       "country": "Germany",
       "latitude": 49.45388888888889,
       "longitude": 11.0775,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2090#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 52,
       "city": "Lyon",
       "population": 527236,
       "populationAsOfYear": 2024,
-      "populationSource": "https://data.jrc.ec.europa.eu/dataset/37fcacbf-12e2-4b31-b1af-83117a74b2c7",
       "cityId": "lyon",
       "country": "France",
       "latitude": 45.7675,
       "longitude": 4.835,
-      "timezone": "Europe/Paris",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q456#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Paris"
     },
     {
       "rank": 53,
       "city": "Toulouse",
       "population": 522662,
       "populationAsOfYear": 2024,
-      "populationSource": "https://data.jrc.ec.europa.eu/dataset/37fcacbf-12e2-4b31-b1af-83117a74b2c7",
       "cityId": "toulouse",
       "country": "France",
       "latitude": 43.60444444444445,
       "longitude": 1.4433333333333334,
-      "timezone": "Europe/Paris",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q7880#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Paris"
     },
     {
       "rank": 54,
       "city": "Hanover",
       "population": 522131,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "hanover",
       "country": "Germany",
       "latitude": 52.374444444444,
       "longitude": 9.7386111111111,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1715#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 55,
       "city": "Duisburg",
       "population": 500810,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "duisburg",
       "country": "Germany",
       "latitude": 51.432222222222,
       "longitude": 6.7611111111111,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2100#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 56,
       "city": "Gdańsk",
       "population": 489328,
       "populationAsOfYear": 2025,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "gdansk",
       "country": "Poland",
       "latitude": 54.3482907,
       "longitude": 18.6540233,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1792#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 57,
       "city": "Bratislava",
       "population": 480947,
       "populationAsOfYear": 2026,
-      "populationSource": "https://datacube.statistics.sk/#!/view/en/vbd_dem/om7104mr/v_om7104mr_00_00_00_en",
       "cityId": "bratislava",
       "country": "Slovakia",
       "latitude": 48.1516988,
       "longitude": 17.1093063,
-      "timezone": "Europe/Bratislava",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1780#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Bratislava"
     },
     {
       "rank": 58,
       "city": "Murcia",
       "population": 479405,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "murcia",
       "country": "Spain",
       "latitude": 37.983333333333334,
       "longitude": -1.1302777777777777,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q12225#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 59,
       "city": "Tallinn",
       "population": 452563,
       "populationAsOfYear": 2026,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "tallinn",
       "country": "Estonia",
       "latitude": 59.437222222222,
       "longitude": 24.745,
-      "timezone": "Europe/Tallinn",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1770#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Tallinn"
     },
     {
       "rank": 60,
       "city": "Sintra",
       "population": 449956,
       "populationAsOfYear": 2025,
-      "populationSource": "https://data.csu.gov.cz/datastat/data/VYBER/OBY02AT02",
       "cityId": "sintra",
       "country": "Portugal",
       "latitude": 38.797361111111,
       "longitude": -9.3904166666667,
-      "timezone": "Europe/Lisbon",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q190187#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Lisbon"
     },
     {
       "rank": 61,
       "city": "Palma de Mallorca",
       "population": 434786,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "palma-de-mallorca",
       "country": "Spain",
       "latitude": 39.566666666667,
       "longitude": 2.6497222222222,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q8826#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 62,
       "city": "Brno",
       "population": 404296,
       "populationAsOfYear": 2026,
-      "populationSource": "https://data.csu.gov.cz/datastat/data/VYBER/OBY02AT02",
       "cityId": "brno",
       "country": "Czechia",
       "latitude": 49.195277777778,
       "longitude": 16.608333333333,
-      "timezone": "Europe/Prague",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q14960#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Prague"
     },
     {
       "rank": 63,
       "city": "Bologna",
       "population": 391473,
       "populationAsOfYear": 2026,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "bologna",
       "country": "Italy",
       "latitude": 44.493888888889,
       "longitude": 11.342777777778,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1891#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 64,
       "city": "Szczecin",
       "population": 383786,
       "populationAsOfYear": 2025,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "szczecin",
       "country": "Poland",
       "latitude": 53.424722222222,
       "longitude": 14.555277777778,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q393#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 65,
       "city": "Las Palmas",
       "population": 381868,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "las-palmas",
       "country": "Spain",
       "latitude": 28.127222222222,
       "longitude": -15.431388888889,
-      "timezone": "Atlantic/Canary",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q11974#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Atlantic/Canary"
     },
     {
       "rank": 66,
       "city": "Utrecht",
       "population": 378444,
       "populationAsOfYear": 2026,
-      "populationSource": "https://datacube.statistics.sk/#!/view/en/vbd_dem/om7104mr/v_om7104mr_00_00_00_en",
       "cityId": "utrecht",
       "country": "Netherlands",
       "latitude": 52.090833333333336,
       "longitude": 5.121666666666667,
-      "timezone": "Europe/Amsterdam",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q803#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Amsterdam"
     },
     {
       "rank": 67,
       "city": "Aarhus",
       "population": 378361,
       "populationAsOfYear": 2026,
-      "populationSource": "https://www.statbank.dk/20021",
       "cityId": "aarhus",
       "country": "Denmark",
       "latitude": 56.156388888889,
       "longitude": 10.209722222222,
-      "timezone": "Europe/Copenhagen",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q25319#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Copenhagen"
     },
     {
       "rank": 68,
       "city": "Malmö",
       "population": 368660,
       "populationAsOfYear": 2026,
-      "populationSource": "https://data.cso.ie/",
       "cityId": "malmo",
       "country": "Sweden",
       "latitude": 55.583333333333336,
       "longitude": 13,
-      "timezone": "Europe/Stockholm",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2211#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Stockholm"
     },
     {
       "rank": 69,
       "city": "Alicante",
       "population": 366221,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "alicante",
       "country": "Spain",
       "latitude": 38.345277777778,
       "longitude": -0.48305555555556,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q11959#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 70,
       "city": "Florence",
       "population": 361625,
       "populationAsOfYear": 2026,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "florence",
       "country": "Italy",
       "latitude": 43.771388888889,
       "longitude": 11.254166666667,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2044#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 71,
       "city": "Bochum",
       "population": 358880,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "bochum",
       "country": "Germany",
       "latitude": 51.483333333333,
       "longitude": 7.2166666666667,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2103#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 72,
       "city": "Nice",
       "population": 358527,
       "populationAsOfYear": 2024,
-      "populationSource": "https://data.jrc.ec.europa.eu/dataset/37fcacbf-12e2-4b31-b1af-83117a74b2c7",
       "cityId": "nice",
       "country": "France",
       "latitude": 43.701944444444,
       "longitude": 7.2683333333333,
-      "timezone": "Europe/Paris",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q33959#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Paris"
     },
     {
       "rank": 73,
       "city": "Wuppertal",
       "population": 357243,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "wuppertal",
       "country": "Germany",
       "latitude": 51.266666666667,
       "longitude": 7.1833333333333,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2107#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 74,
       "city": "Bilbao",
       "population": 351124,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "bilbao",
       "country": "Spain",
       "latitude": 43.26305555555555,
       "longitude": -2.935,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q8692#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 75,
       "city": "Plovdiv",
       "population": 333994,
       "populationAsOfYear": 2025,
-      "populationSource": "https://www.nsi.bg/en/statistical-data/206/651",
       "cityId": "plovdiv",
       "country": "Bulgaria",
       "latitude": 42.142086,
       "longitude": 24.741454,
-      "timezone": "Europe/Sofia",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q459#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Sofia"
     },
     {
       "rank": 76,
       "city": "Nantes",
       "population": 332411,
       "populationAsOfYear": 2024,
-      "populationSource": "https://data.jrc.ec.europa.eu/dataset/37fcacbf-12e2-4b31-b1af-83117a74b2c7",
       "cityId": "nantes",
       "country": "France",
       "latitude": 47.217222222222,
       "longitude": -1.5538888888889,
-      "timezone": "Europe/Paris",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q12191#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Paris"
     },
     {
       "rank": 77,
       "city": "Bielefeld",
       "population": 331419,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "bielefeld",
       "country": "Germany",
       "latitude": 52.016666666667,
       "longitude": 8.5333333333333,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2112#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 78,
       "city": "Varna",
       "population": 331260,
       "populationAsOfYear": 2025,
-      "populationSource": "https://www.nsi.bg/en/statistical-data/206/651",
       "cityId": "varna",
       "country": "Bulgaria",
       "latitude": 43.211375,
       "longitude": 27.91108,
-      "timezone": "Europe/Sofia",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q6506#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Sofia"
     },
     {
       "rank": 79,
       "city": "Espoo",
       "population": 328502,
       "populationAsOfYear": 2026,
-      "populationSource": "https://pxdata.stat.fi/PXWeb/pxweb/en/StatFin/StatFin__vamuu/11lj.px",
       "cityId": "espoo",
       "country": "Finland",
       "latitude": 60.205555555555556,
       "longitude": 24.655555555555555,
-      "timezone": "Europe/Helsinki",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q47034#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Helsinki"
     },
     {
       "rank": 80,
       "city": "Lublin",
       "population": 326685,
       "populationAsOfYear": 2025,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "lublin",
       "country": "Poland",
       "latitude": 51.25,
       "longitude": 22.566666666667,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q37333#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 81,
       "city": "Bonn",
       "population": 323587,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "bonn",
       "country": "Germany",
       "latitude": 50.735277777777775,
       "longitude": 7.102222222222222,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q586#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 82,
       "city": "Córdoba",
       "population": 323262,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "cordoba",
       "country": "Spain",
       "latitude": 37.89,
       "longitude": -4.78,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q5818#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 83,
       "city": "Vila Nova de Gaia",
       "population": 323202,
       "populationAsOfYear": 2025,
-      "populationSource": "https://data.csu.gov.cz/datastat/data/VYBER/OBY02AT02",
       "cityId": "vila-nova-de-gaia",
       "country": "Portugal",
       "latitude": 41.133333333333,
       "longitude": -8.6166666666667,
-      "timezone": "Europe/Lisbon",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q191135#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Lisbon"
     },
     {
       "rank": 84,
       "city": "Bydgoszcz",
       "population": 321100,
       "populationAsOfYear": 2025,
-      "populationSource": "https://osp.stat.gov.lt/statistiniu-rodikliu-analize?hash=684e50e2-6cf6-426f-8d20-8b3e3856bdd2#/",
       "cityId": "bydgoszcz",
       "country": "Poland",
       "latitude": 53.116666666667,
       "longitude": 18,
-      "timezone": "Europe/Warsaw",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q41252#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Warsaw"
     },
     {
       "rank": 85,
       "city": "Mannheim",
       "population": 318035,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "mannheim",
       "country": "Germany",
       "latitude": 49.48777777777778,
       "longitude": 8.466111111111111,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2119#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 86,
       "city": "Bari",
       "population": 316248,
       "populationAsOfYear": 2026,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "bari",
       "country": "Italy",
       "latitude": 41.125277777778,
       "longitude": 16.866666666667,
-      "timezone": "Europe/Rome",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q3519#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Rome"
     },
     {
       "rank": 87,
       "city": "Montpellier",
       "population": 312537,
       "populationAsOfYear": 2024,
-      "populationSource": "https://data.jrc.ec.europa.eu/dataset/37fcacbf-12e2-4b31-b1af-83117a74b2c7",
       "cityId": "montpellier",
       "country": "France",
       "latitude": 43.610919444444,
       "longitude": 3.8772305555556,
-      "timezone": "Europe/Paris",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q6441#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Paris"
     },
     {
       "rank": 88,
       "city": "Karlsruhe",
       "population": 309050,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "karlsruhe",
       "country": "Germany",
       "latitude": 49.016666666667,
       "longitude": 8.4,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q1040#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 89,
       "city": "Thessaloniki",
       "population": 307920,
       "populationAsOfYear": 2024,
-      "populationSource": "https://data.jrc.ec.europa.eu/dataset/37fcacbf-12e2-4b31-b1af-83117a74b2c7",
       "cityId": "thessaloniki",
       "country": "Greece",
       "latitude": 40.640277777777776,
       "longitude": 22.935555555555556,
-      "timezone": "Europe/Athens",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q17151#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Athens"
     },
     {
       "rank": 90,
       "city": "Münster",
       "population": 306368,
       "populationAsOfYear": 2025,
-      "populationSource": "https://statistik.nrw/gesellschaft-und-staat/gebiet-und-bevoelkerung/bevoelkerung/bevoelkerung-nach-gemeinden",
       "cityId": "munster",
       "country": "Germany",
       "latitude": 51.9625,
       "longitude": 7.6255555555556,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2742#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     },
     {
       "rank": 91,
       "city": "Graz",
       "population": 305314,
       "populationAsOfYear": 2025,
-      "populationSource": "http://statcube.at/statcube/opendatabase?id=debevstandjbab2002",
       "cityId": "graz",
       "country": "Austria",
       "latitude": 47.07083333333333,
       "longitude": 15.438611111111111,
-      "timezone": "Europe/Vienna",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q13298#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Vienna"
     },
     {
       "rank": 92,
       "city": "Kaunas",
       "population": 303613,
       "populationAsOfYear": 2026,
-      "populationSource": "https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05C4003S.px/",
       "cityId": "kaunas",
       "country": "Lithuania",
       "latitude": 54.9,
       "longitude": 23.933333333333,
-      "timezone": "Europe/Vilnius",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q4115712#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Vilnius"
     },
     {
       "rank": 93,
       "city": "Ljubljana",
       "population": 302826,
       "populationAsOfYear": 2026,
-      "populationSource": "https://pxweb.stat.si/SiStatData/pxweb/en/Data/-/05C4003S.px/",
       "cityId": "ljubljana",
       "country": "Slovenia",
       "latitude": 46.05138888888889,
       "longitude": 14.50611111111111,
-      "timezone": "Europe/Ljubljana",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q437#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Ljubljana"
     },
     {
       "rank": 94,
       "city": "Valladolid",
       "population": 302614,
       "populationAsOfYear": 2025,
-      "populationSource": "https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0291U",
       "cityId": "valladolid",
       "country": "Spain",
       "latitude": 41.651980555556,
       "longitude": -4.7285611111111,
-      "timezone": "Europe/Madrid",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q8356#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Madrid"
     },
     {
       "rank": 95,
       "city": "Augsburg",
       "population": 301105,
       "populationAsOfYear": 2024,
-      "populationSource": "https://www.ibz.rrn.fgov.be/sites/default/files/documents/nl/bevolking/statistieken/stat-1-1_n.pdf",
       "cityId": "augsburg",
       "country": "Germany",
       "latitude": 48.36888888888889,
       "longitude": 10.897777777777778,
-      "timezone": "Europe/Berlin",
-      "coordinatesSource": "https://www.wikidata.org/wiki/Q2749#P625",
-      "timezoneSource": "https://data.iana.org/time-zones/tzdb/zone.tab"
+      "timezone": "Europe/Berlin"
     }
   ],
   "omissions": []

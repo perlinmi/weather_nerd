@@ -4,9 +4,9 @@
 
 Generalize the existing Berlin forecast implementation into a public city
 catalogue and a permission-gated forecast endpoint for each catalogue ID. Pin
-all verifiable city rows in the selected EU city-limits source snapshot and
-their provenance in application resources; do not make population or location
-data requests at runtime. Preserve the three-day
+all verifiable city rows in the selected EU city-limits source snapshot in
+application resources; do not make population or location data requests at
+runtime. Preserve the three-day
 forecast response shape, authorization ordering, one-hour per-city cache,
 stale fallback, and single-instance global quota, with the agreed hard limit
 of 500 outbound provider HTTP requests per UTC day.
@@ -23,12 +23,11 @@ of 500 outbound provider HTTP requests per UTC day.
   `RestClient`, Jackson, and test support; tests must not call live services.
 - **Catalogue:** Use the specified EU city-limits population list as a
   versioned snapshot. Store the snapshot retrieval date and per-city
-  population, population as-of year, representative coordinates, IANA
-  timezone, and citations for population, coordinates, and timezone in the
-  bundled application data. Keep citations out of the public response.
+  population, population as-of year, representative coordinates, and IANA
+  timezone in the bundled application data.
   Include each city in the pinned source snapshot for which population,
-  representative coordinates, timezone, and their provenance can be verified.
-  Document any listed city omitted for unavailable required data.
+  representative coordinates and timezone can be verified. Document any
+  listed city omitted for unavailable required data.
 - **API:** Add public `GET /weather/cities`, returning all 95 records in
   rank order with dataset source and snapshot date. Replace
   the Berlin-specific forecast handler with
@@ -52,14 +51,13 @@ of 500 outbound provider HTTP requests per UTC day.
 1. **Pin and model the catalogue**
    - Pin the EU city-limits source snapshot retrieved on 2026-11-07, containing
      95 city rows. Include all
-     listed cities whose population, representative coordinates, timezone,
-     and required provenance can be verified; document omissions for
+     listed cities whose population, representative coordinates, and timezone
+     can be verified; document omissions for
      unavailable data.
    - Add a typed city model and immutable catalogue loader backed by a
-     versioned resource. Keep provenance fields in that resource/model while
-     mapping only the specified public fields into the API DTO.
+     versioned resource.
    - Validate IDs, rank uniqueness and ordering, coordinates, timezone IDs,
-     population metadata, and non-empty provenance at load/test time.
+     and population metadata at load/test time.
 2. **Expose the catalogue**
    - Add a thin controller and response DTO for `GET /weather/cities`.
    - Return all 95 pinned catalogue entries in rank order, with dataset source and
@@ -96,10 +94,9 @@ of 500 outbound provider HTTP requests per UTC day.
 ## Test Strategy
 
 1. **Catalogue tests:** assert all 95 city rows in the pinned source snapshot
-   are represented, with ordered unique ranks,
+   are represented, with    ordered unique ranks,
    unique stable lowercase ASCII IDs, valid latitude/longitude and IANA
-   timezones, required population metadata, and bundled citations for
-   population, coordinates, and timezone. Verify dataset source and snapshot
+   timezones, and required population metadata. Verify dataset source and snapshot
    date. Assert the public response omits per-city citation fields.
 2. **Catalogue endpoint tests:** verify public access, response shape and
    ordering, and no permissions/provider calls.
@@ -124,12 +121,12 @@ of 500 outbound provider HTTP requests per UTC day.
 ## Risks and Decisions
 
 - **Catalogue accuracy and reproducibility:** City names, administrative
-  boundaries, population years, representative centres, and source citations
-  require manual verification against the recorded snapshot and cited
-  references. Keep the final checked dataset reproducible and reviewable.
+  boundaries, population years, and representative centres require
+  verification against the recorded snapshot. Keep the final dataset
+  reproducible and reviewable.
 - **Source records and missing data:** Preserve the selected list's ordering
-  and document any listed city omitted because required data or citations
-  cannot be verified.
+  and document any listed city omitted because required data cannot be
+  verified.
 - **Provider quota semantics:** The agreed limit is a hard global cap of 500
   requests per UTC day with no per-city reservation. Popular-city traffic can
   consume the budget before other cities are requested; without stale data,

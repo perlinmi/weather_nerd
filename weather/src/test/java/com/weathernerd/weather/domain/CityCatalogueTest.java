@@ -2,6 +2,7 @@ package com.weathernerd.weather.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.weathernerd.weather.ForecastTestCities;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ class CityCatalogueTest {
     }
 
     @Test
-    void cityRecordsHaveUniqueStableIdsValidLocationsAndCompleteProvenance() {
+    void cityRecordsHaveUniqueStableIdsAndValidLocations() {
         List<City> cities = catalogue.cities();
 
         assertThat(cities).extracting(City::cityId).doesNotHaveDuplicates();
@@ -47,9 +48,7 @@ class CityCatalogueTest {
             assertThat(ZoneId.getAvailableZoneIds()).contains(city.timezone());
             assertThat(city.population()).isPositive();
             assertThat(city.populationAsOfYear()).isBetween(1900, 2026);
-            assertThat(city.populationSource()).matches("https?://.+");
-            assertThat(city.coordinatesSource()).matches("https?://.+");
-            assertThat(city.timezoneSource()).matches("https?://.+");
         });
+        assertThat(cities).containsAll(ForecastTestCities.ALL);
     }
 }

@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.weathernerd.weather.ForecastTestCities;
+import com.weathernerd.weather.domain.City;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,8 +19,8 @@ class CityCatalogueControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void returnsPinnedCatalogueWithoutPerCitySourceCitations() throws Exception {
-        mockMvc.perform(get("/weather/cities"))
+    void returnsPinnedCatalogue() throws Exception {
+        var result = mockMvc.perform(get("/weather/cities"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.source").value(
                         "https://en.wikipedia.org/wiki/List_of_cities_in_the_European_Union_by_population_within_city_limits"))
@@ -26,9 +28,13 @@ class CityCatalogueControllerTest {
                 .andExpect(jsonPath("$.cities.length()").value(95))
                 .andExpect(jsonPath("$.cities[0].cityId").value("berlin"))
                 .andExpect(jsonPath("$.cities[0].rank").value(1))
-                .andExpect(jsonPath("$.cities[0].population").value(3913644))
-                .andExpect(jsonPath("$.cities[0].populationSource").doesNotExist())
-                .andExpect(jsonPath("$.cities[0].coordinatesSource").doesNotExist())
-                .andExpect(jsonPath("$.cities[0].timezoneSource").doesNotExist());
+                .andExpect(jsonPath("$.cities[0].population").value(3913644));
+
+        for (City city : ForecastTestCities.ALL) {
+            result.andExpect(jsonPath("$.cities[%d].cityId".formatted(city.rank() - 1))
+                            .value(city.cityId()))
+                    .andExpect(jsonPath("$.cities[%d].city".formatted(city.rank() - 1))
+                            .value(city.city()));
+        }
     }
 }

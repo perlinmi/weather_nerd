@@ -1,6 +1,5 @@
 package com.weathernerd.weather.domain;
 
-import java.net.URI;
 import java.time.DateTimeException;
 import java.time.ZoneId;
 
@@ -13,20 +12,13 @@ public record City(
         String timezone,
         int rank,
         long population,
-        int populationAsOfYear,
-        String populationSource,
-        String coordinatesSource,
-        String timezoneSource) {
+        int populationAsOfYear) {
 
     public City {
         requireText(cityId, "cityId");
         requireText(city, "city");
         requireText(country, "country");
         requireText(timezone, "timezone");
-        requireSourceUrl(populationSource, "populationSource");
-        requireSourceUrl(coordinatesSource, "coordinatesSource");
-        requireSourceUrl(timezoneSource, "timezoneSource");
-
         if (!cityId.matches("[a-z0-9]+(?:-[a-z0-9]+)*")) {
             throw new IllegalArgumentException("cityId must be a lowercase ASCII slug.");
         }
@@ -52,13 +44,4 @@ public record City(
         }
     }
 
-    private static void requireSourceUrl(String value, String field) {
-        requireText(value, field);
-        URI uri = URI.create(value);
-        String scheme = uri.getScheme();
-        if (uri.getHost() == null
-                || !("https".equalsIgnoreCase(scheme) || "http".equalsIgnoreCase(scheme))) {
-            throw new IllegalArgumentException(field + " must be an HTTP(S) source URL.");
-        }
-    }
 }

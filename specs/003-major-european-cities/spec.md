@@ -11,8 +11,8 @@ source:
 The catalogue is a versioned snapshot selected at implementation time and is
 not automatically updated. Include every city entry in the source snapshot
 that has verifiable population, representative-coordinate, and timezone data
-and provenance. Record the snapshot retrieval date and, for every city, its
-population estimate, population as-of year, and cited source. The selected
+and timezone values. Record the snapshot retrieval date and, for every city,
+its population estimate and population as-of year. The selected
 source contained 95 city rows when retrieved on 2026-11-07.
 
 ## City inclusion and catalogue
@@ -25,13 +25,12 @@ source contained 95 city rows when retrieved on 2026-11-07.
 - If city-name slugs collide, disambiguate them with the country's ISO 3166-1
   alpha-2 code (for example, `city-name-fr`).
 - Store a canonical city name, country, latitude, longitude, IANA timezone,
-  population rank, population estimate, population as-of year, and source
-  citations for the population, coordinates, and timezone.
+  population rank, population estimate, and population as-of year.
 - Use one representative city-centre coordinate per city; use the official
   city centre or administrative seat where available. Coordinates and timezone
   may come from separately cited reputable sources when not given by the
   population-list source.
-- If a listed city lacks verifiable required data or provenance after checking
+- If a listed city lacks verifiable required data after checking
   reputable sources, omit that city from the pinned catalogue and document the
   omission.
 - The source snapshot date and source citation are kept with the catalogue
@@ -45,10 +44,8 @@ source contained 95 city rows when retrieved on 2026-11-07.
 - Catalogue metadata is public and does not require a permissions check.
 
 Each item contains `cityId`, `city`, `country`, `latitude`, `longitude`,
-`timezone`, `rank`, `population`, and `populationAsOfYear`. Source citations
-for population, coordinates, and timezone are retained in the bundled
-catalogue data but are not returned by the API. The response also contains the
-dataset source and `snapshotRetrievedAt` date.
+`timezone`, `rank`, `population`, and `populationAsOfYear`. The response also
+contains the dataset source and `snapshotRetrievedAt` date.
 
 ## Forecast endpoint
 
@@ -167,13 +164,10 @@ numeric `weatherCode`.
 
 1. `GET /weather/cities` returns all 95 city records from the pinned source
    snapshot in population rank order, with the identifying, location,
-   timezone, and population
-   metadata. Source citations remain available in the bundled catalogue data,
-   not in the response.
+   timezone, and population metadata.
 2. The city dataset has a recorded source snapshot retrieval date; every
-   population estimate has its as-of year and citation, and every coordinate
-   and timezone has a citation. Listed cities lacking verifiable required data
-   or provenance are omitted and documented. The dataset is not updated
+   population estimate has its as-of year. Listed cities lacking verifiable
+   required data are omitted and documented. The dataset is not updated
    automatically at runtime.
 3. City inclusion follows the selected EU city-limits population list and
    city-proper/administrative population ranking.
@@ -203,10 +197,10 @@ numeric `weatherCode`.
 ## Implementation notes
 
 - Include all verified cities from the pinned source snapshot as application
-  data with their provenance;
+  data;
   do not rely on a live Wikipedia request at application startup or at runtime.
 - Add tests that exercise the entire catalogue for count, rank uniqueness/order,
-  unique IDs, valid coordinates/timezones, population provenance, and forecast
+  unique IDs, valid coordinates/timezones, population metadata, and forecast
   support.
 - Reuse the existing forecast response shape, permissions behavior, WMO
   mapping, caching, stale fallback, and quota behavior where possible, making

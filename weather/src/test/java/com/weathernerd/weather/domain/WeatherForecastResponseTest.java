@@ -2,10 +2,14 @@ package com.weathernerd.weather.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.weathernerd.weather.ForecastTestCities;
+import com.weathernerd.weather.domain.City;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Instant;
 import java.util.List;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
@@ -16,12 +20,13 @@ class WeatherForecastResponseTest {
     @Autowired
     private JacksonTester<WeatherForecastResponse> json;
 
-    @Test
-    void serializesTheContractFieldsAndThreeDailyEntries() throws Exception {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void serializesTheContractFieldsAndThreeDailyEntries(City city) throws Exception {
         WeatherForecastResponse response = new WeatherForecastResponse(
-                "Berlin",
-                "Germany",
-                "Europe/Berlin",
+                city.city(),
+                city.country(),
+                city.timezone(),
                 "Open-Meteo DWD API",
                 Instant.parse("2026-11-07T10:00:00Z"),
                 false,
@@ -31,11 +36,11 @@ class WeatherForecastResponseTest {
                         daily("2026-11-09")));
 
         assertThat(json.write(response))
-                .extractingJsonPathStringValue("@.city").isEqualTo("Berlin");
+                .extractingJsonPathStringValue("@.city").isEqualTo(city.city());
         assertThat(json.write(response))
-                .extractingJsonPathStringValue("@.country").isEqualTo("Germany");
+                .extractingJsonPathStringValue("@.country").isEqualTo(city.country());
         assertThat(json.write(response))
-                .extractingJsonPathStringValue("@.timezone").isEqualTo("Europe/Berlin");
+                .extractingJsonPathStringValue("@.timezone").isEqualTo(city.timezone());
         assertThat(json.write(response))
                 .extractingJsonPathStringValue("@.source").isEqualTo("Open-Meteo DWD API");
         assertThat(json.write(response))

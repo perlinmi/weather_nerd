@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.weathernerd.weather.ForecastTestCities;
 import com.weathernerd.weather.client.OpenMeteoClient;
 import com.weathernerd.weather.client.PermissionsClient;
 import com.weathernerd.weather.client.PermissionsServiceException;
@@ -23,10 +24,14 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -53,24 +58,22 @@ class CityForecastServiceTest {
     }
 
     @Test
-    void cachesEachCityIndependentlyAndChecksPermissionBeforeEveryResponse() {
-        City berlin = city("berlin");
-        City madrid = city("madrid");
+    void cachesEachRepresentativeCityIndependentlyAndChecksPermissionBeforeEveryResponse() {
         when(permissionsClient.isGranted("Chrome/1.0")).thenReturn(true);
-        when(providerClient.fetchForecast(berlin))
-                .thenReturn(providerForecast(LocalDate.parse("2026-11-07")));
-        when(providerClient.fetchForecast(madrid))
-                .thenReturn(providerForecast(LocalDate.parse("2026-11-07")));
+        ForecastTestCities.ALL.forEach(city -> when(providerClient.fetchForecast(city))
+                .thenReturn(providerForecast(LocalDate.parse("2026-11-07"))));
 
-        service.getForecast("berlin", "Chrome/1.0");
-        WeatherForecastResponse cachedBerlin = service.getForecast("berlin", "Chrome/1.0");
-        service.getForecast("madrid", "Chrome/1.0");
+        ForecastTestCities.ALL.forEach(city -> {
+            service.getForecast(city.cityId(), "Chrome/1.0");
+            WeatherForecastResponse cached = service.getForecast(city.cityId(), "Chrome/1.0");
 
-        assertThat(cachedBerlin.city()).isEqualTo("Berlin");
-        assertThat(cachedBerlin.stale()).isFalse();
-        verify(permissionsClient, org.mockito.Mockito.times(3)).isGranted("Chrome/1.0");
-        verify(providerClient).fetchForecast(berlin);
-        verify(providerClient).fetchForecast(madrid);
+            assertThat(cached.city()).isEqualTo(city.city());
+            assertThat(cached.stale()).isFalse();
+        });
+
+        verify(permissionsClient, org.mockito.Mockito.times(ForecastTestCities.ALL.size() * 2))
+                .isGranted("Chrome/1.0");
+        ForecastTestCities.ALL.forEach(city -> verify(providerClient).fetchForecast(city));
     }
 
     @Test
@@ -82,66 +85,67 @@ class CityForecastServiceTest {
         verify(providerClient, org.mockito.Mockito.never()).fetchForecast(org.mockito.ArgumentMatchers.any());
     }
 
-    @Test
-    void neverReturnsCachedDataWhenPermissionIsDenied() {
-        City berlin = city("berlin");
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void neverReturnsCachedDataWhenPermissionIsDenied(City city) {
         when(permissionsClient.isGranted("Chrome/1.0")).thenReturn(true, false);
-        when(providerClient.fetchForecast(berlin))
+        when(providerClient.fetchForecast(city))
                 .thenReturn(providerForecast(LocalDate.parse("2026-11-07")));
-        service.getForecast("berlin", "Chrome/1.0");
+        service.getForecast(city.cityId(), "Chrome/1.0");
 
-        assertThatThrownBy(() -> service.getForecast("berlin", "Chrome/1.0"))
+        assertThatThrownBy(() -> service.getForecast(city.cityId(), "Chrome/1.0"))
                 .isInstanceOf(ForecastAccessDeniedException.class);
 
-        verify(providerClient).fetchForecast(berlin);
+        verify(providerClient).fetchForecast(city);
     }
 
-    @Test
-    void refreshesCacheAfterOneHour() {
-        City berlin = city("berlin");
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void refreshesCacheAfterOneHour(City city) {
         when(permissionsClient.isGranted("Chrome/1.0")).thenReturn(true);
-        when(providerClient.fetchForecast(berlin))
+        when(providerClient.fetchForecast(city))
                 .thenReturn(providerForecast(LocalDate.parse("2026-11-07")))
                 .thenReturn(providerForecast(LocalDate.parse("2026-11-07")));
-        service.getForecast("berlin", "Chrome/1.0");
+        service.getForecast(city.cityId(), "Chrome/1.0");
         clock.setInstant(Instant.parse("2026-11-07T11:00:01Z"));
 
-        service.getForecast("berlin", "Chrome/1.0");
+        service.getForecast(city.cityId(), "Chrome/1.0");
 
-        verify(providerClient, org.mockito.Mockito.times(2)).fetchForecast(berlin);
+        verify(providerClient, org.mockito.Mockito.times(2)).fetchForecast(city);
     }
 
-    @Test
-    void failsClosedWhenPermissionServiceIsUnavailable() {
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void failsClosedWhenPermissionServiceIsUnavailable(City city) {
         when(permissionsClient.isGranted("Chrome/1.0"))
                 .thenThrow(new PermissionsServiceException("unavailable"));
 
-        assertThatThrownBy(() -> service.getForecast("berlin", "Chrome/1.0"))
+        assertThatThrownBy(() -> service.getForecast(city.cityId(), "Chrome/1.0"))
                 .isInstanceOf(PermissionsServiceException.class);
 
         verify(providerClient, org.mockito.Mockito.never()).fetchForecast(org.mockito.ArgumentMatchers.any());
     }
 
-    @Test
-    void refreshesWhenTheCityLocalDateWindowChanges() {
-        City berlin = city("berlin");
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void refreshesWhenTheCityLocalDateWindowChanges(City city) {
         clock.setInstant(Instant.parse("2026-11-07T23:30:00Z"));
         when(permissionsClient.isGranted("Safari/1.0")).thenReturn(true);
-        when(providerClient.fetchForecast(berlin))
+        when(providerClient.fetchForecast(city))
                 .thenReturn(providerForecast(LocalDate.parse("2026-11-08")))
                 .thenThrow(new ProviderResponseException("Provider unavailable"));
-        service.getForecast("berlin", "Safari/1.0");
+        service.getForecast(city.cityId(), "Safari/1.0");
         clock.setInstant(Instant.parse("2026-11-08T23:30:00Z"));
 
-        WeatherForecastResponse stale = service.getForecast("berlin", "Safari/1.0");
+        WeatherForecastResponse stale = service.getForecast(city.cityId(), "Safari/1.0");
 
         assertThat(stale.stale()).isTrue();
         assertThat(stale.forecast().get(0).date()).isEqualTo(LocalDate.parse("2026-11-08"));
     }
 
-    @Test
-    void coalescesConcurrentRefreshesForTheSameCity() throws Exception {
-        City berlin = city("berlin");
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void coalescesConcurrentRefreshesForTheSameCity(City city) throws Exception {
         when(permissionsClient.isGranted("Chrome/1.0")).thenReturn(true);
         CountDownLatch providerStarted = new CountDownLatch(1);
         CountDownLatch releaseProvider = new CountDownLatch(1);
@@ -155,13 +159,13 @@ class CityForecastServiceTest {
                     return providerForecast(LocalDate.parse("2026-11-07"));
                 })
                 .when(providerClient)
-                .fetchForecast(berlin);
+                .fetchForecast(city);
 
         CompletableFuture<WeatherForecastResponse> first =
-                CompletableFuture.supplyAsync(() -> service.getForecast("berlin", "Chrome/1.0"));
+                CompletableFuture.supplyAsync(() -> service.getForecast(city.cityId(), "Chrome/1.0"));
         assertThat(providerStarted.await(5, TimeUnit.SECONDS)).isTrue();
         CompletableFuture<WeatherForecastResponse> second =
-                CompletableFuture.supplyAsync(() -> service.getForecast("berlin", "Chrome/1.0"));
+                CompletableFuture.supplyAsync(() -> service.getForecast(city.cityId(), "Chrome/1.0"));
         releaseProvider.countDown();
 
         assertThat(first.get(5, TimeUnit.SECONDS).forecast()).hasSize(3);
@@ -170,32 +174,29 @@ class CityForecastServiceTest {
     }
 
     @Test
-    void allowsDifferentCitiesToRefreshIndependently() throws Exception {
-        City berlin = city("berlin");
-        City madrid = city("madrid");
+    void allowsAllRepresentativeCitiesToRefreshIndependently() throws Exception {
         when(permissionsClient.isGranted("Chrome/1.0")).thenReturn(true);
-        CountDownLatch bothStarted = new CountDownLatch(2);
+        CountDownLatch allStarted = new CountDownLatch(ForecastTestCities.ALL.size());
         doAnswer(invocation -> {
-                    bothStarted.countDown();
+                    allStarted.countDown();
                     return providerForecast(LocalDate.parse("2026-11-07"));
                 })
                 .when(providerClient)
                 .fetchForecast(org.mockito.ArgumentMatchers.any(City.class));
 
-        CompletableFuture<WeatherForecastResponse> berlinResult =
-                CompletableFuture.supplyAsync(() -> service.getForecast("berlin", "Chrome/1.0"));
-        CompletableFuture<WeatherForecastResponse> madridResult =
-                CompletableFuture.supplyAsync(() -> service.getForecast("madrid", "Chrome/1.0"));
+        Map<City, CompletableFuture<WeatherForecastResponse>> results =
+                ForecastTestCities.ALL.stream().collect(Collectors.toMap(
+                        city -> city,
+                        city -> CompletableFuture.supplyAsync(
+                                () -> service.getForecast(city.cityId(), "Chrome/1.0"))));
 
-        assertThat(bothStarted.await(5, TimeUnit.SECONDS)).isTrue();
-        assertThat(berlinResult.get(5, TimeUnit.SECONDS).city()).isEqualTo("Berlin");
-        assertThat(madridResult.get(5, TimeUnit.SECONDS).city()).isEqualTo("Madrid");
-        verify(providerClient).fetchForecast(berlin);
-        verify(providerClient).fetchForecast(madrid);
-    }
-
-    private City city(String cityId) {
-        return catalogue.findById(cityId).orElseThrow();
+        assertThat(allStarted.await(5, TimeUnit.SECONDS)).isTrue();
+        for (Map.Entry<City, CompletableFuture<WeatherForecastResponse>> entry : results.entrySet()) {
+                City city = entry.getKey();
+                CompletableFuture<WeatherForecastResponse> result = entry.getValue();
+                assertThat(result.get(5, TimeUnit.SECONDS).city()).isEqualTo(city.city());
+        }
+        ForecastTestCities.ALL.forEach(city -> verify(providerClient).fetchForecast(city));
     }
 
     private static ProviderForecast providerForecast(LocalDate firstDate) {

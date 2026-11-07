@@ -28,10 +28,8 @@ EU city-limits population catalogue in rank order. The snapshot retrieved on
 }
 ```
 
-The response contains the full pinned catalogue. Population, coordinate, and
-timezone citations are retained in the bundled data and are not exposed in
-this response. The service does not fetch or update catalogue information at
-runtime.
+The response contains the full pinned catalogue. The service does not fetch
+or update catalogue information at runtime.
 
 ## Retrieve a city forecast
 

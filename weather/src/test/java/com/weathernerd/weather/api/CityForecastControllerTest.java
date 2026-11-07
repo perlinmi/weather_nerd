@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.weathernerd.weather.ForecastTestCities;
+import com.weathernerd.weather.domain.City;
 import com.weathernerd.weather.domain.DailyForecast;
 import com.weathernerd.weather.domain.WeatherForecastResponse;
 import com.weathernerd.weather.service.CityForecastService;
@@ -15,6 +17,8 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,18 +35,19 @@ class CityForecastControllerTest {
     @MockitoBean
     private CityForecastService forecastService;
 
-    @Test
-    void routesByCityIdAndPreservesTheForecastResponseShape() throws Exception {
-        when(forecastService.getForecast("berlin", "Browser/1.0"))
-                .thenReturn(response());
+    @ParameterizedTest
+    @MethodSource("com.weathernerd.weather.ForecastTestCities#stream")
+    void routesByCityIdAndPreservesTheForecastResponseShape(City city) throws Exception {
+        when(forecastService.getForecast(city.cityId(), "Browser/1.0"))
+                .thenReturn(response(city));
 
-        mockMvc.perform(get("/weather/forecast/berlin")
+        mockMvc.perform(get("/weather/forecast/" + city.cityId())
                         .header(HttpHeaders.USER_AGENT, "Browser/1.0"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.city").value("Berlin"))
-                .andExpect(jsonPath("$.country").value("Germany"))
-                .andExpect(jsonPath("$.timezone").value("Europe/Berlin"))
+                .andExpect(jsonPath("$.city").value(city.city()))
+                .andExpect(jsonPath("$.country").value(city.country()))
+                .andExpect(jsonPath("$.timezone").value(city.timezone()))
                 .andExpect(jsonPath("$.source").value("Open-Meteo DWD API"))
                 .andExpect(jsonPath("$.stale").value(false))
                 .andExpect(jsonPath("$.forecast.length()").value(3))
@@ -50,7 +55,7 @@ class CityForecastControllerTest {
                 .andExpect(jsonPath("$.forecast[0].minimumTemperatureCelsius").value(4.2))
                 .andExpect(jsonPath("$.forecast[0].windSpeedMetersPerSecond").value(4.5));
 
-        verify(forecastService).getForecast("berlin", "Browser/1.0");
+        verify(forecastService).getForecast(city.cityId(), "Browser/1.0");
     }
 
     @Test
@@ -63,11 +68,11 @@ class CityForecastControllerTest {
                 .andExpect(jsonPath("$.status").value(404));
     }
 
-    private static WeatherForecastResponse response() {
+    private static WeatherForecastResponse response(City city) {
         return new WeatherForecastResponse(
-                "Berlin",
-                "Germany",
-                "Europe/Berlin",
+                city.city(),
+                city.country(),
+                city.timezone(),
                 "Open-Meteo DWD API",
                 Instant.parse("2026-11-07T10:00:00Z"),
                 false,
