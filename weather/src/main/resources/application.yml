@@ -3,7 +3,7 @@ server:
 
 weather:
   open-meteo-base-url: ${OPEN_METEO_BASE_URL:https://api.open-meteo.com}
-  permissions-base-url: ${PERMISSIONS_BASE_URL:http://localhost:8081}
+  permissions-base-url: ${PERMISSIONS_BASE_URL:http://localhost:8080}
   connect-timeout: ${WEATHER_CONNECT_TIMEOUT:2s}
   read-timeout: ${WEATHER_READ_TIMEOUT:4s}
   user-agent: ${WEATHER_USER_AGENT:WeatherNerd/0.1.0}

@@ -1,0 +1,31 @@
+services:
+  permissions:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MODULE: permissions
+    image: weather-nerd-permissions:local
+    environment:
+      SERVER_PORT: 8080
+    restart: unless-stopped
+
+  weather:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MODULE: weather
+    image: weather-nerd-weather:local
+    environment:
+      SERVER_PORT: 8080
+      PERMISSIONS_BASE_URL: http://permissions:8080
+      OPEN_METEO_BASE_URL: https://api.open-meteo.com
+      WEATHER_CONNECT_TIMEOUT: 2s
+      WEATHER_READ_TIMEOUT: 4s
+      WEATHER_USER_AGENT: WeatherNerd/0.1.0
+    ports:
+      - "${WEATHER_HOST_PORT:-8088}:8080"
+    depends_on:
+      - permissions
+    restart: unless-stopped
