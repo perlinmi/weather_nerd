@@ -3,8 +3,6 @@ package com.weathernerd.weather;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.weathernerd.weather.domain.City;
@@ -17,9 +15,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,8 +27,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@AutoConfigureTestRestTemplate
 class WeatherApiEndToEndTest {
     private static final WireMockServer WEATHER_PROVIDER =
             new WireMockServer(WireMockConfiguration.options().dynamicPort());
@@ -58,7 +60,7 @@ class WeatherApiEndToEndTest {
     private TestRestTemplate http;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private JsonMapper jsonMapper;
 
     @Autowired
     private CityCatalogue cityCatalogue;
@@ -80,7 +82,7 @@ class WeatherApiEndToEndTest {
         ResponseEntity<String> response = http.getForEntity(url("/weather/cities"), String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        JsonNode cities = objectMapper.readTree(response.getBody()).path("cities");
+        JsonNode cities = jsonMapper.readTree(response.getBody()).path("cities");
         assertThat(cities).hasSize(95);
         for (int index = 0; index < cities.size(); index++) {
             JsonNode city = cities.get(index);
@@ -109,7 +111,7 @@ class WeatherApiEndToEndTest {
         ResponseEntity<String> response = forecast(city, userAgent);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        JsonNode body = objectMapper.readTree(response.getBody());
+        JsonNode body = jsonMapper.readTree(response.getBody());
         assertThat(body.path("forecast")).hasSize(3);
         assertThat(body.path("forecast").get(0).has("precipitationProbability")).isFalse();
         assertThat(body.path("rainForecast")).hasSize(3);
@@ -137,7 +139,7 @@ class WeatherApiEndToEndTest {
         ResponseEntity<String> response = forecast(city, "Safari/17.0");
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        JsonNode body = objectMapper.readTree(response.getBody());
+        JsonNode body = jsonMapper.readTree(response.getBody());
         assertThat(body.path("forecast")).hasSize(3);
         assertThat(body.has("rainForecast")).isFalse();
     }
@@ -153,7 +155,7 @@ class WeatherApiEndToEndTest {
         ResponseEntity<String> response = forecast(city("madrid"), userAgent);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
-        assertThat(objectMapper.readTree(response.getBody()).path("status").asInt()).isEqualTo(403);
+        assertThat(jsonMapper.readTree(response.getBody()).path("status").asInt()).isEqualTo(403);
         WEATHER_PROVIDER.verify(0, anyRequestedFor(anyUrl()));
     }
 
@@ -176,7 +178,7 @@ class WeatherApiEndToEndTest {
         ResponseEntity<String> response = forecast(city, "Chrome/125.0");
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_GATEWAY);
-        assertThat(objectMapper.readTree(response.getBody()).path("status").asInt()).isEqualTo(502);
+        assertThat(jsonMapper.readTree(response.getBody()).path("status").asInt()).isEqualTo(502);
     }
 
     @Test
@@ -193,7 +195,7 @@ class WeatherApiEndToEndTest {
         ResponseEntity<String> cachedResponse = nearby("berlin", userAgent);
 
         assertThat(firstResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        JsonNode body = objectMapper.readTree(firstResponse.getBody());
+        JsonNode body = jsonMapper.readTree(firstResponse.getBody());
         assertThat(body.path("originCityId").asText()).isEqualTo("berlin");
         List<JsonNode> results = StreamSupport.stream(body.path("nearbyCities").spliterator(), false)
                 .toList();
@@ -234,7 +236,7 @@ class WeatherApiEndToEndTest {
         ResponseEntity<String> response = nearby("vienna", userAgent);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        JsonNode results = objectMapper.readTree(response.getBody()).path("nearbyCities");
+        JsonNode results = jsonMapper.readTree(response.getBody()).path("nearbyCities");
         List<JsonNode> nearbyResults =
                 StreamSupport.stream(results.spliterator(), false).toList();
         assertThat(nearbyResults).extracting(city -> city.path("cityId").asText())
@@ -276,7 +278,7 @@ class WeatherApiEndToEndTest {
         ResponseEntity<String> response = nearby("riga", "Chrome/125.0");
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(objectMapper.readTree(response.getBody()).path("nearbyCities")).isEmpty();
+        assertThat(jsonMapper.readTree(response.getBody()).path("nearbyCities")).isEmpty();
         WEATHER_PROVIDER.verify(0, anyRequestedFor(anyUrl()));
     }
 

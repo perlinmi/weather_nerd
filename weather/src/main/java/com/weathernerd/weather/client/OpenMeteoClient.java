@@ -1,13 +1,10 @@
 package com.weathernerd.weather.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weathernerd.weather.config.WeatherClientProperties;
 import com.weathernerd.weather.domain.DailyForecast;
 import com.weathernerd.weather.domain.RainForecastDay;
 import com.weathernerd.weather.domain.City;
 import com.weathernerd.weather.domain.WeatherCodeSummary;
-import com.weathernerd.weather.exception.ProviderQuotaExceededException;
 import com.weathernerd.weather.exception.ProviderResponseException;
 import com.weathernerd.weather.service.ProviderRequestQuota;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,6 +23,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.util.UriComponentsBuilder;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 
 @Component
 public class OpenMeteoClient {
@@ -37,7 +36,7 @@ public class OpenMeteoClient {
     private final ProviderRequestQuota quota;
     private final Clock clock;
     private final WeatherCodeSummary codeSummary;
-    private final ObjectMapper objectMapper;
+    private final JsonMapper jsonMapper;
 
     public OpenMeteoClient(
             @Qualifier("openMeteoRestClient")
@@ -46,13 +45,13 @@ public class OpenMeteoClient {
             ProviderRequestQuota quota,
             Clock clock,
             WeatherCodeSummary codeSummary,
-            ObjectMapper objectMapper) {
+            JsonMapper jsonMapper) {
         this.restClient = openMeteoRestClient;
         this.forecastUri = URI.create(properties.getOpenMeteoForecastUrl());
         this.quota = quota;
         this.clock = clock;
         this.codeSummary = codeSummary;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
     }
 
     public ProviderForecast fetchForecast(City city) {
@@ -139,8 +138,8 @@ public class OpenMeteoClient {
     private ProviderForecast toForecast(String body, City city) {
         ProviderPayload payload;
         try {
-            payload = objectMapper.readValue(body, ProviderPayload.class);
-        } catch (JsonProcessingException exception) {
+            payload = jsonMapper.readValue(body, ProviderPayload.class);
+        } catch (JacksonException exception) {
             throw new ProviderResponseException("The forecast provider returned invalid JSON.", exception);
         }
 

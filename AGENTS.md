@@ -7,7 +7,7 @@ Monorepo with two Spring Boot services:
 Specs live in `specs/` (Spec Kit). The contract between the services is `specs/contracts/`.
 
 ## Stack
-- Java 25 only, Spring Boot 3.x, Maven (parent `pom.xml` with both modules)
+- Java 25 only, Spring Boot 4.x, Maven (parent `pom.xml` with both modules)
 - Tests: JUnit 5; prioritize HTTP end-to-end tests with WireMock stubs for
   outbound services. See `docs/testing.md`.
 - Services talk to each other via RESTful API
@@ -25,6 +25,8 @@ Specs live in `specs/` (Spec Kit). The contract between the services is `specs/c
 
 ## Code conventions
 - Packages: `com.weathernerd.<service>.{api,service,repository,domain,config,exception}`.
+- Remove package directories when their last source file is removed; do not
+  leave empty packages.
 - Put all application-defined exception classes in the service's dedicated
   `exception` package, never alongside controllers, clients, or services.
 - Controllers stay thin and contain no business logic

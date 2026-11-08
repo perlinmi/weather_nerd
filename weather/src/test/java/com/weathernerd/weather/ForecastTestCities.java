@@ -1,10 +1,10 @@
 package com.weathernerd.weather;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weathernerd.weather.domain.City;
 import com.weathernerd.weather.domain.CityCatalogue;
 import java.util.List;
 import java.util.stream.Stream;
+import tools.jackson.databind.json.JsonMapper;
 
 public final class ForecastTestCities {
     public static final List<City> ALL = loadCities();
@@ -16,7 +16,7 @@ public final class ForecastTestCities {
     }
 
     private static List<City> loadCities() {
-        CityCatalogue catalogue = new CityCatalogue(new ObjectMapper().findAndRegisterModules());
+        CityCatalogue catalogue = new CityCatalogue(JsonMapper.builder().findAndAddModules().build());
         return List.of("berlin", "madrid", "ljubljana", "malmo", "gdansk").stream()
                 .map(cityId -> catalogue.findById(cityId).orElseThrow())
                 .toList();

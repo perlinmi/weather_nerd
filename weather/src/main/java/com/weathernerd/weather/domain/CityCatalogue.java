@@ -1,6 +1,6 @@
 package com.weathernerd.weather.domain;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import java.io.IOException;
 import java.net.URI;
 import java.time.LocalDate;
@@ -20,10 +20,10 @@ public final class CityCatalogue {
     private final LocalDate snapshotRetrievedAt;
     private final List<City> cities;
 
-    public CityCatalogue(ObjectMapper objectMapper) {
+    public CityCatalogue(JsonMapper jsonMapper) {
         Snapshot snapshot;
         try (var input = new ClassPathResource(RESOURCE).getInputStream()) {
-            snapshot = objectMapper.readValue(input, Snapshot.class);
+            snapshot = jsonMapper.readValue(input, Snapshot.class);
         } catch (IOException exception) {
             throw new IllegalStateException("Could not load the pinned city catalogue.", exception);
         }
