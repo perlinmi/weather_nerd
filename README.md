@@ -173,7 +173,8 @@ API rather than the internal permissions endpoint.
 ```mermaid
 flowchart LR
     Customer[Customer] -->|GET /weather/cities| Weather[Weather service]
-    Customer -->|GET /weather/forecast/{cityId}<br/>GET /weather/nearby/{cityId}| Weather
+    Customer -->|GET /weather/forecast/:cityId| Weather
+    Customer -->|GET /weather/nearby/:cityId| Weather
 
     Weather -->|User-Agent + endpoint key| Permissions[Permissions service]
     Permissions --> Classifier[User-Agent role classifier]
