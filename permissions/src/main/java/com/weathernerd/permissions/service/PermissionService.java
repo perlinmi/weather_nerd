@@ -13,7 +13,7 @@ public class PermissionService {
         this.policy = policy;
     }
 
-    public boolean isGranted(String userAgent) {
-        return policy.isGranted(classifier.classify(userAgent));
+    public boolean isGranted(String userAgent, String endpoint) {
+        return policy.isGranted(classifier.classify(userAgent), endpoint);
     }
 }

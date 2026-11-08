@@ -55,7 +55,9 @@ contains the dataset source and `snapshotRetrievedAt` date.
 - The Berlin-specific handler is removed. `GET /weather/forecast/berlin`
   remains valid because `berlin` is a catalogue `cityId` handled by the
   general city-ID route.
-- The request has no body.
+- The weather API request has no body. Its permission check sends
+  `{"endpoint":"forecast"}` as the JSON body to
+  `POST /permissions/is_granted`.
 - The forecast covers today and the next two calendar days in that city's
   IANA timezone.
 - Use the Open-Meteo DWD API `/v1/dwd-icon`. Pass the catalogue coordinates and
@@ -130,7 +132,7 @@ numeric `weatherCode`.
 - Every forecast request checks the permissions service before reading or
   returning cached forecast data, and before calling Open-Meteo.
 - Forward the original caller's `User-Agent` unchanged to
-  `POST /permissions/is_granted`.
+  `POST /permissions/is_granted` and send `{"endpoint":"forecast"}` as JSON.
 - `200 OK` from permissions means continue.
 - A permissions `403 Forbidden` is returned by weather as `403 Forbidden` with
   RFC 7807 problem details.

@@ -40,9 +40,10 @@ Unknown IDs return `404 Not Found` with RFC 7807 problem details.
 
 Every request for a known city forwards the original caller's `User-Agent` to
 `POST /permissions/is_granted` before cached forecast data is read or provider
-data is requested. Permission denial returns `403 Forbidden` with RFC 7807
-problem details. A permissions-service outage or unexpected response returns
-`503 Service Unavailable` with RFC 7807 problem details.
+data is requested. The permission request includes the JSON body
+`{"endpoint":"forecast"}`. Permission denial returns `403 Forbidden` with RFC
+7807 problem details. A permissions-service outage or unexpected response
+returns `503 Service Unavailable` with RFC 7807 problem details.
 
 The forecast covers today and the next two calendar days in the city's IANA
 timezone. Temperature is in Celsius and wind speed is in meters per second. A
@@ -59,6 +60,35 @@ omit `rainForecast`. The generic weather entries do not contain a
 
 The dedicated Berlin-only handler has been removed. Berlin remains available
 because `berlin` is a city ID handled by this general route.
+
+## Retrieve forecasts for nearby cities
+
+`GET /weather/nearby/{cityId}`
+
+`cityId` must match a catalogue ID exactly, ignoring letter case. Unknown IDs
+return `404 Not Found` with RFC 7807 problem details. The origin city is not
+included in the results.
+
+The weather service forwards the original `User-Agent` in one check to
+`POST /permissions/is_granted` with `{"endpoint":"nearby"}` before reading or
+requesting any forecast data. Only Chrome is granted this endpoint. Permission
+denial returns `403 Forbidden`; a permissions-service outage or unexpected
+response returns `503 Service Unavailable`. Internal forecasts in the nearby
+response do not trigger additional permission checks.
+
+The response contains `originCityId` and a `nearbyCities` array. Include every
+other catalogue city at most 200 km away, calculated by the haversine formula
+with a mean Earth radius of 6,371.0088 km. The boundary is inclusive. Order by
+unrounded distance ascending and then `cityId`; return `distanceKm` rounded
+to one decimal place. Each item contains `cityId`, canonical `city`, `country`,
+and `distanceKm`, plus the existing forecast response in `forecast` when
+available. If there are no matches, return an empty array.
+
+Each included city's forecast uses the existing per-city cache, stale-data,
+provider-quota, and conditional rain-forecast behavior. If a provider failure
+or exhausted quota leaves no stale forecast, keep the city and distance but
+omit `forecast`, and continue with other cities. Do not suppress permission
+failures or unexpected application errors.
 
 ### Provider cache and request limit
 

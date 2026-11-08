@@ -19,9 +19,9 @@ malformed user-agent values.
   deterministic matching rules unless an existing dependency is established
   when the Maven structure is created.
 - **API:** `POST /permissions/is_granted`, using the forwarded `User-Agent`
-  request header and no body. Return `200 OK` with no body for Safari and
-  Chrome; return `403 Forbidden` with
-  `{"error":"Permission denied"}` for Other.
+  request header and a JSON body containing the weather endpoint key. Return
+  `200 OK` with no body for allowed endpoint/browser combinations; return
+  `403 Forbidden` with `{"error":"Permission denied"}` otherwise.
 - **Errors:** Keep expected access denial distinct from unexpected application
   errors. Return the specified denial body for this expected authorization
   result; use RFC 7807 problem details for unexpected API errors, consistent

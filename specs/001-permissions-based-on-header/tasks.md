@@ -17,8 +17,8 @@ per task. Write the tests before the implementation tasks they cover.
 
 - [x] T002 Document the permissions service contract.
   - Add the contract under `specs/contracts/`.
-  - Specify `POST /permissions/is_granted`, forwarded `User-Agent`, no request
-    body, 200 with an empty body for a grant, and 403 with
+  - Specify `POST /permissions/is_granted`, forwarded `User-Agent`, an endpoint
+    key in the JSON request body, 200 with an empty body for a grant, and 403 with
     `{"error":"Permission denied"}` for a denial.
   - Keep this contract aligned with `spec.md`.
   - References: spec Endpoint contract; plan Service contract.
@@ -58,7 +58,8 @@ per task. Write the tests before the implementation tasks they cover.
     denied User-Agent headers.
   - Assert 200 with an empty body for Safari/Chrome and 403 with the exact JSON
     body for Other, including missing/malformed headers.
-  - Verify no request body is required and all roles share the same route.
+  - Verify the endpoint key is provided in the JSON body and all roles share
+    the same route.
   - References: spec Endpoint contract and acceptance criteria 1, 6–8; plan
     Permissions service 4–5 and Validation Plan 3.
 

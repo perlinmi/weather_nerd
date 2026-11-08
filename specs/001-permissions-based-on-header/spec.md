@@ -20,7 +20,8 @@ defined.
 
 - Method and path: `POST /permissions/is_granted`
 - Input: the original caller's `User-Agent` in the HTTP request header, forwarded
-  by the weather service; no request body.
+  by the weather service, and a JSON body containing the weather endpoint key
+  (`forecast` or `nearby`).
 - A granted request returns `200 OK` with an empty body.
 - A denied request returns `403 Forbidden` with a JSON body:
   `{"error":"Permission denied"}` and `Content-Type: application/json`.
@@ -47,8 +48,10 @@ defined.
 
 ## Authorization policy
 
-The endpoint grants access to the `Safari` and `Chrome` roles and denies access
-to the `Other` role. No separate permission/action identifier is required.
+The endpoint evaluates access using both the classified browser role and the
+weather endpoint key. The `forecast` endpoint grants `Safari` and `Chrome`;
+the `nearby` endpoint grants only `Chrome`. The `Other` role and missing or
+unrecognized endpoint keys are denied.
 
 ## Acceptance criteria
 
@@ -62,7 +65,9 @@ to the `Other` role. No separate permission/action identifier is required.
    browser identifier maps to `Safari`.
 5. A missing, blank, malformed, or unrecognized `User-Agent` maps to `Other`
    rather than producing a classification error.
-6. `Safari` and `Chrome` are granted; `Other` is denied.
+6. For endpoint key `forecast`, `Safari` and `Chrome` are granted; `Other` is
+   denied. For endpoint key `nearby`, only `Chrome` is granted. Missing and
+   unrecognized endpoint keys are denied.
 7. A granted request returns `200 OK` with an empty body. A denied request
    returns `403 Forbidden` with the JSON body
    `{"error":"Permission denied"}`.

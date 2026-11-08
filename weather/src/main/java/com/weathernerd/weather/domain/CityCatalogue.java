@@ -53,6 +53,13 @@ public final class CityCatalogue {
         return cities.stream().filter(city -> city.cityId().equals(cityId)).findFirst();
     }
 
+    public Optional<City> findByIdIgnoreCase(String cityId) {
+        if (cityId == null) {
+            return Optional.empty();
+        }
+        return cities.stream().filter(city -> city.cityId().equalsIgnoreCase(cityId)).findFirst();
+    }
+
     private static void validate(Snapshot snapshot) {
         if (snapshot == null
                 || snapshot.source() == null

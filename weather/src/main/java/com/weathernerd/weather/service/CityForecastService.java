@@ -52,10 +52,14 @@ public class CityForecastService {
 
     public WeatherForecastResponse getForecast(String cityId, String originalUserAgent) {
         City city = catalogue.findById(cityId).orElseThrow(UnknownCityException::new);
-        if (!permissionsClient.isGranted(originalUserAgent)) {
+        if (!permissionsClient.isGranted(originalUserAgent, "forecast")) {
             throw new ForecastAccessDeniedException();
         }
 
+        return getForecastAfterAuthorization(city);
+    }
+
+    WeatherForecastResponse getForecastAfterAuthorization(City city) {
         CacheEntry currentCache;
         synchronized (refreshLock) {
             currentCache = cacheByCity.get(city.cityId());

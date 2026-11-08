@@ -2,6 +2,7 @@ package com.weathernerd.permissions;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -30,28 +32,39 @@ class PermissionsApiEndToEndTest {
     private TestRestTemplate http;
 
     @Test
-    void grantsChromeAndSafariAndDeniesOtherAndMissingUserAgents() {
-        assertThat(post(CHROME).getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(post(SAFARI).getStatusCode()).isEqualTo(HttpStatus.OK);
+    void appliesBrowserPolicyForEachWeatherEndpoint() {
+        assertThat(post(CHROME, "forecast").getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(post(SAFARI, "forecast").getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertDenied(post(OTHER, "forecast"));
 
-        ResponseEntity<String> other = post(OTHER);
-        assertThat(other.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
-        assertThat(other.getBody()).isEqualTo("{\"error\":\"Permission denied\"}");
-
-        ResponseEntity<String> missing = post(null);
-        assertThat(missing.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
-        assertThat(missing.getBody()).isEqualTo("{\"error\":\"Permission denied\"}");
+        assertThat(post(CHROME, "nearby").getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertDenied(post(SAFARI, "nearby"));
+        assertDenied(post(OTHER, "nearby"));
     }
 
-    private ResponseEntity<String> post(String userAgent) {
+    @Test
+    void deniesMissingOrUnknownEndpointKeysAndMissingUserAgents() {
+        assertDenied(post(CHROME, null));
+        assertDenied(post(CHROME, "unknown"));
+        assertDenied(post(null, "forecast"));
+    }
+
+    private ResponseEntity<String> post(String userAgent, String endpoint) {
         HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
         if (userAgent != null) {
             headers.set(HttpHeaders.USER_AGENT, userAgent);
         }
+        Object body = endpoint == null ? null : Map.of("endpoint", endpoint);
         return http.exchange(
                 "http://localhost:" + port + "/permissions/is_granted",
                 HttpMethod.POST,
-                new HttpEntity<>(headers),
+                new HttpEntity<>(body, headers),
                 String.class);
+    }
+
+    private void assertDenied(ResponseEntity<String> response) {
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+        assertThat(response.getBody()).isEqualTo("{\"error\":\"Permission denied\"}");
     }
 }

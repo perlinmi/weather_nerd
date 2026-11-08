@@ -4,6 +4,7 @@ import com.weathernerd.weather.config.WeatherClientProperties;
 import com.weathernerd.weather.exception.PermissionsServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -20,13 +21,15 @@ public class PermissionsClient {
         this.properties = properties;
     }
 
-    public boolean isGranted(String originalUserAgent) {
+    public boolean isGranted(String originalUserAgent, String endpoint) {
         try {
             Response response = restClient.post()
                     .uri(properties.getPermissionsCheckUrl())
+                    .contentType(MediaType.APPLICATION_JSON)
                     .headers(headers -> headers.set(
                             HttpHeaders.USER_AGENT,
                             originalUserAgent == null ? "" : originalUserAgent))
+                    .body(new PermissionCheckRequest(endpoint))
                     .exchange((request, clientResponse) -> new Response(
                             clientResponse.getStatusCode().value()));
 
@@ -44,5 +47,8 @@ public class PermissionsClient {
     }
 
     private record Response(int statusCode) {
+    }
+
+    private record PermissionCheckRequest(String endpoint) {
     }
 }

@@ -42,10 +42,12 @@ journals between tests so cases remain isolated.
 
 Weather-service endpoint tests should, as appropriate:
 
-- call `GET /weather/cities` and `GET /weather/forecast/{cityId}` over HTTP;
+- call `GET /weather/cities`, `GET /weather/forecast/{cityId}`, and
+  `GET /weather/nearby/{cityId}` over HTTP;
 - stub the permissions endpoint and weather provider, then verify permission
   decisions, forwarding of the caller's `User-Agent`, provider request inputs,
-  and the final response shape;
+  endpoint-key request bodies (`forecast` or `nearby`), and the final response
+  shape;
 - exercise meaningful success, denial, unknown-city, and dependency-failure
   behavior without asserting internal calls except where an external boundary
   contract requires it.

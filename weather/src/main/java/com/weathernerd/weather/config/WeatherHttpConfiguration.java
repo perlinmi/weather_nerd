@@ -20,19 +20,22 @@ public class WeatherHttpConfiguration {
     @Bean
     RestClient openMeteoRestClient(
             RestClient.Builder builder, WeatherClientProperties properties) {
-        return configuredClient(builder, properties);
+        return configuredClient(builder, properties, HttpClient.Version.HTTP_2);
     }
 
     @Bean
     RestClient permissionsRestClient(
             RestClient.Builder builder, WeatherClientProperties properties) {
-        return configuredClient(builder, properties);
+        return configuredClient(builder, properties, HttpClient.Version.HTTP_1_1);
     }
 
     private RestClient configuredClient(
-            RestClient.Builder builder, WeatherClientProperties properties) {
+            RestClient.Builder builder,
+            WeatherClientProperties properties,
+            HttpClient.Version httpVersion) {
         HttpClient httpClient = HttpClient.newBuilder()
                 .connectTimeout(properties.getConnectTimeout())
+                .version(httpVersion)
                 .followRedirects(HttpClient.Redirect.NEVER)
                 .build();
         JdkClientHttpRequestFactory requestFactory = new JdkClientHttpRequestFactory(httpClient);
