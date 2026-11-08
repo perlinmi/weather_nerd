@@ -40,8 +40,12 @@ class WeatherApiEndToEndTest {
 
     @DynamicPropertySource
     static void configureExternalServices(DynamicPropertyRegistry registry) {
-        registry.add("weather.open-meteo-base-url", WEATHER_PROVIDER::baseUrl);
-        registry.add("weather.permissions-base-url", PERMISSIONS_SERVICE::baseUrl);
+        registry.add(
+                "weather.open-meteo-forecast-url",
+                () -> WEATHER_PROVIDER.baseUrl() + "/v1/dwd-icon");
+        registry.add(
+                "weather.permissions-check-url",
+                () -> PERMISSIONS_SERVICE.baseUrl() + "/permissions/is_granted");
     }
 
     @LocalServerPort

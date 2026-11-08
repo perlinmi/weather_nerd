@@ -5,26 +5,26 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "weather")
 public class WeatherClientProperties {
-    private String openMeteoBaseUrl = "https://api.open-meteo.com";
-    private String permissionsBaseUrl = "http://localhost:8081";
+    private String openMeteoForecastUrl;
+    private String permissionsCheckUrl;
     private Duration connectTimeout = Duration.ofSeconds(2);
     private Duration readTimeout = Duration.ofSeconds(4);
     private String userAgent = "WeatherNerd/0.1.0";
 
-    public String getOpenMeteoBaseUrl() {
-        return openMeteoBaseUrl;
+    public String getOpenMeteoForecastUrl() {
+        return openMeteoForecastUrl;
     }
 
-    public void setOpenMeteoBaseUrl(String openMeteoBaseUrl) {
-        this.openMeteoBaseUrl = openMeteoBaseUrl;
+    public void setOpenMeteoForecastUrl(String openMeteoForecastUrl) {
+        this.openMeteoForecastUrl = openMeteoForecastUrl;
     }
 
-    public String getPermissionsBaseUrl() {
-        return permissionsBaseUrl;
+    public String getPermissionsCheckUrl() {
+        return permissionsCheckUrl;
     }
 
-    public void setPermissionsBaseUrl(String permissionsBaseUrl) {
-        this.permissionsBaseUrl = permissionsBaseUrl;
+    public void setPermissionsCheckUrl(String permissionsCheckUrl) {
+        this.permissionsCheckUrl = permissionsCheckUrl;
     }
 
     public Duration getConnectTimeout() {

@@ -1,4 +1,4 @@
-package com.weathernerd.weather.service;
+package com.weathernerd.weather.exception;
 
 public class ForecastQuotaExceededException extends RuntimeException {
     public ForecastQuotaExceededException() {

@@ -1,4 +1,4 @@
-package com.weathernerd.weather.service;
+package com.weathernerd.weather.exception;
 
 public class ForecastAccessDeniedException extends RuntimeException {
     public ForecastAccessDeniedException() {

@@ -36,9 +36,9 @@
 Use `@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)`
 and `TestRestTemplate` (or another real HTTP client) to call the application.
 Start WireMock on dynamic ports for outbound HTTP dependencies, configure the
-application with those base URLs using `@DynamicPropertySource`, and stop the
-servers after the test class. Reset stub mappings and request journals between
-tests so cases remain isolated.
+application with those complete endpoint URLs using `@DynamicPropertySource`,
+and stop the servers after the test class. Reset stub mappings and request
+journals between tests so cases remain isolated.
 
 Weather-service endpoint tests should, as appropriate:
 

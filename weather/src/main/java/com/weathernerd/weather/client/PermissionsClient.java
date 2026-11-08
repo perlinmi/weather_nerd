@@ -1,12 +1,12 @@
 package com.weathernerd.weather.client;
 
 import com.weathernerd.weather.config.WeatherClientProperties;
+import com.weathernerd.weather.exception.PermissionsServiceException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 public class PermissionsClient {
@@ -23,10 +23,7 @@ public class PermissionsClient {
     public boolean isGranted(String originalUserAgent) {
         try {
             Response response = restClient.post()
-                    .uri(UriComponentsBuilder.fromUriString(properties.getPermissionsBaseUrl())
-                            .path("/permissions/is_granted")
-                            .build()
-                            .toUri())
+                    .uri(properties.getPermissionsCheckUrl())
                     .headers(headers -> headers.set(
                             HttpHeaders.USER_AGENT,
                             originalUserAgent == null ? "" : originalUserAgent))

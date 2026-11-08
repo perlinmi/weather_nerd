@@ -1,4 +1,4 @@
-package com.weathernerd.weather.client;
+package com.weathernerd.weather.exception;
 
 public class PermissionsServiceException extends RuntimeException {
     public PermissionsServiceException(String message, Throwable cause) {

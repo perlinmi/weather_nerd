@@ -1,4 +1,4 @@
-package com.weathernerd.weather.client;
+package com.weathernerd.weather.exception;
 
 public class ProviderResponseException extends RuntimeException {
     public ProviderResponseException(String message) {

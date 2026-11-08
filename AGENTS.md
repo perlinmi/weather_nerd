@@ -24,12 +24,18 @@ Specs live in `specs/` (Spec Kit). The contract between the services is `specs/c
 - Before writing tests, read `docs/testing.md`. Derive tests from the acceptance criteria in `spec.md`.
 
 ## Code conventions
-- Packages: `com.weathernerd.<service>.{api,service,repository,domain,config}`.
+- Packages: `com.weathernerd.<service>.{api,service,repository,domain,config,exception}`.
+- Put all application-defined exception classes in the service's dedicated
+  `exception` package, never alongside controllers, clients, or services.
 - Controllers stay thin and contain no business logic
 - Constructor injection only
 - Errors: `@RestControllerAdvice` returning RFC 7807 problem details.
 - External HTTP calls use `RestClient` with timeouts, and always send a User-Agent.
-- Config via `application.yml` and environment variables, never hardcoded.
+- External service URLs, including endpoint paths, must be configured in
+  `application.yml` and overridden through environment variables when needed;
+  never hardcode them in Java.
+- Other runtime settings use `application.yml` and environment variables,
+  never hardcoded.
 
 ## Rules
 - Never commit secrets. Keep them in `.env` (git-ignored) and document them in `.env.example`.

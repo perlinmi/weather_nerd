@@ -19,8 +19,8 @@ services:
     image: weather-nerd-weather:local
     environment:
       SERVER_PORT: 8080
-      PERMISSIONS_BASE_URL: http://permissions:8080
-      OPEN_METEO_BASE_URL: https://api.open-meteo.com
+      PERMISSIONS_CHECK_URL: http://permissions:8080/permissions/is_granted
+      OPEN_METEO_FORECAST_URL: https://api.open-meteo.com/v1/dwd-icon
       WEATHER_CONNECT_TIMEOUT: 2s
       WEATHER_READ_TIMEOUT: 4s
       WEATHER_USER_AGENT: WeatherNerd/0.1.0

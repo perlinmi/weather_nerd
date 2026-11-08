@@ -7,6 +7,8 @@ import com.weathernerd.weather.domain.DailyForecast;
 import com.weathernerd.weather.domain.RainForecastDay;
 import com.weathernerd.weather.domain.City;
 import com.weathernerd.weather.domain.WeatherCodeSummary;
+import com.weathernerd.weather.exception.ProviderQuotaExceededException;
+import com.weathernerd.weather.exception.ProviderResponseException;
 import com.weathernerd.weather.service.ProviderRequestQuota;
 import org.springframework.beans.factory.annotation.Qualifier;
 import java.io.IOException;
@@ -31,7 +33,7 @@ public class OpenMeteoClient {
     private static final int MAX_REDIRECTS = 5;
 
     private final RestClient restClient;
-    private final String baseUrl;
+    private final URI forecastUri;
     private final ProviderRequestQuota quota;
     private final Clock clock;
     private final WeatherCodeSummary codeSummary;
@@ -46,7 +48,7 @@ public class OpenMeteoClient {
             WeatherCodeSummary codeSummary,
             ObjectMapper objectMapper) {
         this.restClient = openMeteoRestClient;
-        this.baseUrl = properties.getOpenMeteoBaseUrl();
+        this.forecastUri = URI.create(properties.getOpenMeteoForecastUrl());
         this.quota = quota;
         this.clock = clock;
         this.codeSummary = codeSummary;
@@ -102,8 +104,7 @@ public class OpenMeteoClient {
     }
 
     private URI buildForecastUri(City city) {
-        return UriComponentsBuilder.fromUriString(baseUrl)
-                .path("/v1/dwd-icon")
+        return UriComponentsBuilder.fromUri(forecastUri)
                 .queryParam("latitude", Double.toString(city.latitude()))
                 .queryParam("longitude", Double.toString(city.longitude()))
                 .queryParam(
@@ -125,7 +126,7 @@ public class OpenMeteoClient {
         }
 
         URI target = currentUri.resolve(location);
-        URI base = URI.create(baseUrl);
+        URI base = forecastUri;
         if (!base.getScheme().equalsIgnoreCase(target.getScheme())
                 || !base.getHost().equalsIgnoreCase(target.getHost())
                 || target.getUserInfo() != null) {

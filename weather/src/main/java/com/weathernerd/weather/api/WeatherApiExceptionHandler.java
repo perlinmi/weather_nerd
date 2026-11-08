@@ -1,10 +1,10 @@
 package com.weathernerd.weather.api;
 
-import com.weathernerd.weather.client.PermissionsServiceException;
-import com.weathernerd.weather.service.ForecastAccessDeniedException;
-import com.weathernerd.weather.service.ForecastQuotaExceededException;
-import com.weathernerd.weather.service.ForecastUnavailableException;
-import com.weathernerd.weather.service.UnknownCityException;
+import com.weathernerd.weather.exception.ForecastAccessDeniedException;
+import com.weathernerd.weather.exception.ForecastQuotaExceededException;
+import com.weathernerd.weather.exception.ForecastUnavailableException;
+import com.weathernerd.weather.exception.PermissionsServiceException;
+import com.weathernerd.weather.exception.UnknownCityException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
