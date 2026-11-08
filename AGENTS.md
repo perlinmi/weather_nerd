@@ -8,7 +8,8 @@ Specs live in `specs/` (Spec Kit). The contract between the services is `specs/c
 
 ## Stack
 - Java 25 only, Spring Boot 3.x, Maven (parent `pom.xml` with both modules)
-- Tests: JUnit 5, Mockito, Testcontainers, WireMock for external APIs
+- Tests: JUnit 5; prioritize HTTP end-to-end tests with WireMock stubs for
+  outbound services. See `docs/testing.md`.
 - Services talk to each other via RESTful API
 
 ## Commands
@@ -20,7 +21,7 @@ Specs live in `specs/` (Spec Kit). The contract between the services is `specs/c
 ## Workflow (spec-driven)
 - Update the spec before the code. If code and spec disagree, fix the spec first.
 - Work from `specs/<feature>/tasks.md`, one task at a time, one commit per task.
-- Write tests from the acceptance criteria before the implementation.
+- Before writing tests, read `docs/testing.md`. Derive tests from the acceptance criteria in `spec.md`.
 
 ## Code conventions
 - Packages: `com.weathernerd.<service>.{api,service,repository,domain,config}`.

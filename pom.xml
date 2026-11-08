@@ -23,6 +23,7 @@
 
     <properties>
         <java.version>25</java.version>
+        <wiremock.version>3.13.2</wiremock.version>
     </properties>
 
     <build>
